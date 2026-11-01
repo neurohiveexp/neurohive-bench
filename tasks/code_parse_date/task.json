@@ -1,0 +1,13 @@
+{
+  "id": "code_parse_date",
+  "version": 1,
+  "title": "Функция разбора русских дат",
+  "category": "code",
+  "language": "ru",
+  "skills": ["python", "edge_cases", "spec_following"],
+  "check": {
+    "rules": [
+      {"type": "python_tests", "function": "parse_ru_date", "tests": "tests.py", "timeout": 20}
+    ]
+  }
+}

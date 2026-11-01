@@ -1,0 +1,22 @@
+{
+  "id": "en_summary",
+  "version": 1,
+  "title": "One-sentence summary of a news item",
+  "category": "text_en",
+  "language": "en",
+  "skills": ["summarization", "instruction_following"],
+  "check": {
+    "rules": [
+      {"type": "sentences", "max": 1},
+      {"type": "word_count", "max": 35},
+      {"type": "no_cyrillic"},
+      {"type": "facts", "min_groups": 3, "groups": [
+        {"name": "14 cranes", "any": ["\\b14\\b", "fourteen"]},
+        {"name": "€220 million", "any": ["220"]},
+        {"name": "March 2028", "any": ["2028"]},
+        {"name": "turnaround 36 → 22 hours", "any": ["\\b22\\b", "\\b36\\b"]},
+        {"name": "no layoffs until 2031", "any": ["layoff", "job", "2031"]}
+      ]}
+    ]
+  }
+}

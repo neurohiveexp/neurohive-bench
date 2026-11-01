@@ -1,0 +1,21 @@
+{
+  "id": "ru_summary",
+  "version": 1,
+  "title": "Пересказ новости в трёх пунктах",
+  "category": "text_ru",
+  "language": "ru",
+  "skills": ["summarization", "instruction_following"],
+  "check": {
+    "rules": [
+      {"type": "bullets", "exact": 3},
+      {"type": "word_count", "max": 60},
+      {"type": "script", "script": "cyrillic", "min_ratio": 0.85},
+      {"type": "facts", "min_groups": 3, "groups": [
+        {"name": "дата начала", "any": ["1\\s*апрел", "01\\.04"]},
+        {"name": "скорость 15 км/ч", "any": ["15\\s*км"]},
+        {"name": "120 зон парковки", "any": ["\\b120\\b"]},
+        {"name": "ночной запрет", "any": ["23[:.]?00", "ноч"]}
+      ]}
+    ]
+  }
+}

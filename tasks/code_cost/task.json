@@ -1,0 +1,13 @@
+{
+  "id": "code_cost",
+  "version": 1,
+  "title": "Функция стоимости запроса к API с кешем и надбавкой за длинный запрос",
+  "category": "code",
+  "language": "ru",
+  "skills": ["python", "spec_following", "arithmetic"],
+  "check": {
+    "rules": [
+      {"type": "python_tests", "function": "request_cost", "tests": "tests.py", "timeout": 20}
+    ]
+  }
+}

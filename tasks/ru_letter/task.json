@@ -1,0 +1,27 @@
+{
+  "id": "ru_letter",
+  "version": 1,
+  "title": "Письмо-претензия в управляющую компанию",
+  "category": "text_ru",
+  "language": "ru",
+  "skills": ["writing", "instruction_following", "fact_retention"],
+  "check": {
+    "rules": [
+      {"type": "word_count", "max": 220},
+      {"type": "script", "script": "cyrillic", "min_ratio": 0.85},
+      {"type": "regex", "name": "просьба или требование", "pattern": "(?i)прошу|требую"},
+      {"type": "facts", "groups": [
+        {"name": "улица", "any": ["Садов"]},
+        {"name": "дом 14", "any": ["\\b14\\b"]},
+        {"name": "квартира 37", "any": ["\\b37\\b"]},
+        {"name": "заявка 4512", "any": ["4512"]},
+        {"name": "заявка 4598", "any": ["4598"]},
+        {"name": "сумма 18 400", "any": ["18\\s?400"]},
+        {"name": "срок 10 рабочих дней", "any": ["10\\s*(\\(десят\\w*\\)\\s*)?рабоч", "десят\\w*\\s+рабоч"]},
+        {"name": "отправитель", "any": ["Иванов"]},
+        {"name": "получатель", "any": ["Домсервис"]},
+        {"name": "следующий шаг", "any": ["инспекци", "суд"]}
+      ]}
+    ]
+  }
+}

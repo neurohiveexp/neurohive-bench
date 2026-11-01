@@ -1,0 +1,9 @@
+{
+  "model_name": "Kestrel-2",
+  "organization": "Larkspur Labs",
+  "total_params_b": 212,
+  "active_params_b": 18,
+  "context_tokens": 256000,
+  "license": "Apache-2.0",
+  "release_date": "2026-09-09"
+}
