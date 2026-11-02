@@ -1,0 +1,77 @@
+{
+  "_comment": "Цены в USD за 1 млн токенов. ПРИМЕРЫ — сверить с официальными страницами перед публикацией (verified: false). Длинный запрос: если входных токенов строго больше long_threshold, вход и выход умножаются на long_input_mult и long_output_mult; цена кеша не меняется (как в bench/cost.py).",
+  "currency": "USD",
+  "unit": "per_1m_tokens",
+  "models": [
+    {
+      "id": "claude-opus-5-5",
+      "name": "Claude Opus 5.5",
+      "input": 4.0,
+      "output": 20.0,
+      "cached": 0.2,
+      "long_threshold": null,
+      "long_input_mult": null,
+      "long_output_mult": null,
+      "date": "2026-10-06",
+      "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified": false,
+      "note": "сверить перед публикацией"
+    },
+    {
+      "id": "claude-sonnet-5-5",
+      "name": "Claude Sonnet 5.5",
+      "input": 2.0,
+      "output": 10.0,
+      "cached": 0.2,
+      "long_threshold": null,
+      "long_input_mult": null,
+      "long_output_mult": null,
+      "date": "2026-10-06",
+      "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified": false,
+      "note": "сверить перед публикацией"
+    },
+    {
+      "id": "claude-haiku-5-5",
+      "name": "Claude Haiku 5.5",
+      "input": 0.1,
+      "output": 0.5,
+      "cached": 0.01,
+      "long_threshold": 100000,
+      "long_input_mult": 5.0,
+      "long_output_mult": 5.0,
+      "date": "2026-10-06",
+      "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "verified": false,
+      "note": "сверить перед публикацией: цена кеша — оценка (10% от входа); свыше 100K входных токенов $0.50 / $2.50"
+    },
+    {
+      "id": "deepseek-v4.1-flash",
+      "name": "DeepSeek V4.1 Flash (пример)",
+      "input": 0.15,
+      "output": 0.6,
+      "cached": 0.03,
+      "long_threshold": null,
+      "long_input_mult": null,
+      "long_output_mult": null,
+      "date": "2026-11-02",
+      "source": "https://api-docs.deepseek.com/quick_start/pricing",
+      "verified": false,
+      "note": "сверить перед публикацией: цифры из примера в README бенчмарка"
+    },
+    {
+      "id": "example-long-context",
+      "name": "Модель с надбавкой за длинный запрос (пример)",
+      "input": 2.0,
+      "output": 10.0,
+      "cached": 0.2,
+      "long_threshold": 272000,
+      "long_input_mult": 2.0,
+      "long_output_mult": 1.5,
+      "date": "2026-11-02",
+      "source": "tasks/code_cost/tests.py",
+      "verified": false,
+      "note": "условный тариф из тестов задачи code_cost; заменить реальной моделью или удалить перед публикацией"
+    }
+  ]
+}

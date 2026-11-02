@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Калькулятор стоимости API нейросетей — Neurohive</title>
+<meta name="description" content="Сколько стоит работа с API нейросетей в месяц: агент для разработчика, поддержка магазина, анализ PDF. Сравнение с подписками $20 и $200 и со своей RTX 4090.">
+<style>
+:root{
+  --bg:#f7f7f5;--card:#fff;--text:#1d1d1f;--muted:#6b6b70;--line:#e3e3e0;
+  --accent:#2b59c3;--accent-soft:#e8eefb;--good:#1d7a46;--good-soft:#e5f4ec;--bad:#a8332a;--bad-soft:#fbeae8;--warn:#8a5a00;--warn-soft:#fdf3dc;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#151517;--card:#1f1f22;--text:#ececef;--muted:#a0a0a8;--line:#333338;
+    --accent:#7ea2ff;--accent-soft:#232c44;--good:#5fd093;--good-soft:#18301f;--bad:#ff8a80;--bad-soft:#3a1d1b;--warn:#f0c060;--warn-soft:#3a2f14;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#151517;--card:#1f1f22;--text:#ececef;--muted:#a0a0a8;--line:#333338;
+  --accent:#7ea2ff;--accent-soft:#232c44;--good:#5fd093;--good-soft:#18301f;--bad:#ff8a80;--bad-soft:#3a1d1b;--warn:#f0c060;--warn-soft:#3a2f14;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1040px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.5rem;margin:0 0 4px}
+h2{font-size:1.15rem;margin:0 0 12px}
+p{margin:0 0 10px}
+.lead{color:var(--muted);margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.tabs button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:6px 14px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px 16px}
+label{display:block;font-size:.85rem;color:var(--muted)}
+label span{display:block;margin-bottom:3px}
+input[type=number]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+input:focus{outline:2px solid var(--accent);outline-offset:0}
+.hint{font-size:.85rem;color:var(--muted);margin-top:10px}
+.summary{display:flex;flex-wrap:wrap;gap:8px 24px;margin:10px 0 0;font-size:.9rem}
+.summary b{font-variant-numeric:tabular-nums}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;min-width:640px;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.92rem}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:.82rem}
+th:first-child,td:first-child{text-align:left}
+td{white-space:nowrap}
+td:first-child{white-space:normal;min-width:150px}
+td small{display:block;color:var(--muted);font-size:.78rem}
+.tag{display:inline-block;border-radius:4px;padding:0 6px;font-size:.78rem;white-space:nowrap}
+.tag.good{background:var(--good-soft);color:var(--good)}
+.tag.bad{background:var(--bad-soft);color:var(--bad)}
+.tag.warn{background:var(--warn-soft);color:var(--warn)}
+.err{background:var(--bad-soft);color:var(--bad);padding:8px 12px;border-radius:6px;margin-top:10px}
+.notice{background:var(--warn-soft);color:var(--warn);padding:8px 12px;border-radius:6px;font-size:.88rem;margin-bottom:16px}
+footer{font-size:.82rem;color:var(--muted)}
+footer a,.card a{color:var(--accent)}
+details summary{cursor:pointer;color:var(--accent)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Калькулятор стоимости API нейросетей</h1>
+  <p class="lead">Сколько стоит месяц работы с API, когда выгоднее подписка за $20 или $200 и при каком объёме своя RTX 4090 обходится дешевле облака.</p>
+
+  <div class="notice" id="price-notice">Тарифы в калькуляторе — примеры. Даты и ссылки на источники указаны в таблице; перед решением сверьте цены у провайдера.</div>
+
+  <section class="card" aria-labelledby="h-scn">
+    <h2 id="h-scn">1. Сценарий</h2>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <p id="scn-desc"></p>
+    <div class="grid" id="scn-fields"></div>
+    <div class="summary" id="scn-summary"></div>
+    <div id="scn-error"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-cost">
+    <h2 id="h-cost">2. Стоимость месяца и подписки</h2>
+    <div class="tablewrap"><table id="cost-table"></table></div>
+    <p class="hint">«Порог подписки» — сколько запросов в месяц нужно сделать, чтобы API стоил столько же, сколько подписка. Ниже порога дешевле API, выше — подписка. Учтите, что у подписок есть лимиты использования, а у API их фактически нет.</p>
+  </section>
+
+  <section class="card" aria-labelledby="h-gpu">
+    <h2 id="h-gpu">3. Своя RTX 4090 против API</h2>
+    <p>Видеокарта окупается, когда экономия на каждом запросе покрывает амортизацию и электричество. Скорости по умолчанию — ориентир для модели ~27–32B в 4-битной квантизации; локальная модель по качеству может уступать облачной.</p>
+    <div class="grid" id="gpu-fields"></div>
+    <div class="summary" id="gpu-summary"></div>
+    <div class="tablewrap" style="margin-top:12px"><table id="gpu-table"></table></div>
+    <details class="hint"><summary>Как считается</summary>
+      <p>Постоянные расходы в день = цена карты / (срок амортизации × 365) + мощность в простое × часы работы × тариф. Переменные на запрос = (мощность под нагрузкой − в простое) × время запроса × тариф, где время = некешированный вход / скорость обработки + выход / скорость генерации. Точка безубыточности = постоянные расходы / (цена запроса в API − переменные расходы на запрос). Если порог больше, чем карта успевает обработать за часы работы, она не окупается.</p>
+    </details>
+  </section>
+
+  <section class="card" aria-labelledby="h-prices">
+    <h2 id="h-prices">Тарифы</h2>
+    <div class="tablewrap"><table id="price-table"></table></div>
+    <p class="hint">USD за 1 млн токенов. Длинный запрос: если входных токенов больше порога, цена входа и выхода умножается на коэффициент, цена кеша не меняется. Формула совпадает с <code>bench/cost.py</code> из <a href="https://github.com/neurohiveexp/neurohive-bench" target="_blank" rel="noopener">neurohive-bench</a>.</p>
+  </section>
+
+  <footer>
+    <p>Ссылка на текущий расчёт сохраняется в адресной строке — её можно скопировать и отправить. <a href="#" id="reset">Сбросить параметры</a>.</p>
+    <p>Калькулятор: <a href="https://neurohive.io" target="_blank" rel="noopener">neurohive.io</a>. Исходный код: <a href="https://github.com/neurohiveexp/neurohive-bench/tree/main/tools/cost-calculator" target="_blank" rel="noopener">GitHub</a>.</p>
+  </footer>
+</main>
+
+<!-- Копия prices.json на случай открытия файла без сервера (file://). Тест test.mjs проверяет, что копия совпадает с prices.json. -->
+<script type="application/json" id="prices-fallback">
+{"_comment":"Цены в USD за 1 млн токенов. ПРИМЕРЫ — сверить с официальными страницами перед публикацией (verified: false). Длинный запрос: если входных токенов строго больше long_threshold, вход и выход умножаются на long_input_mult и long_output_mult; цена кеша не меняется (как в bench/cost.py).","currency":"USD","unit":"per_1m_tokens","models":[{"id":"claude-opus-5-5","name":"Claude Opus 5.5","input":4,"output":20,"cached":0.2,"long_threshold":null,"long_input_mult":null,"long_output_mult":null,"date":"2026-10-06","source":"https://platform.claude.com/docs/en/about-claude/pricing","verified":false,"note":"сверить перед публикацией"},{"id":"claude-sonnet-5-5","name":"Claude Sonnet 5.5","input":2,"output":10,"cached":0.2,"long_threshold":null,"long_input_mult":null,"long_output_mult":null,"date":"2026-10-06","source":"https://platform.claude.com/docs/en/about-claude/pricing","verified":false,"note":"сверить перед публикацией"},{"id":"claude-haiku-5-5","name":"Claude Haiku 5.5","input":0.1,"output":0.5,"cached":0.01,"long_threshold":100000,"long_input_mult":5,"long_output_mult":5,"date":"2026-10-06","source":"https://platform.claude.com/docs/en/about-claude/pricing","verified":false,"note":"сверить перед публикацией: цена кеша — оценка (10% от входа); свыше 100K входных токенов $0.50 / $2.50"},{"id":"deepseek-v4.1-flash","name":"DeepSeek V4.1 Flash (пример)","input":0.15,"output":0.6,"cached":0.03,"long_threshold":null,"long_input_mult":null,"long_output_mult":null,"date":"2026-11-02","source":"https://api-docs.deepseek.com/quick_start/pricing","verified":false,"note":"сверить перед публикацией: цифры из примера в README бенчмарка"},{"id":"example-long-context","name":"Модель с надбавкой за длинный запрос (пример)","input":2,"output":10,"cached":0.2,"long_threshold":272000,"long_input_mult":2,"long_output_mult":1.5,"date":"2026-11-02","source":"tasks/code_cost/tests.py","verified":false,"note":"условный тариф из тестов задачи code_cost; заменить реальной моделью или удалить перед публикацией"}]}
+</script>
+
+<script>
+/* BEGIN cost.js — перенос bench/cost.py, проверяется test.mjs */
+function requestCost(inputTokens, outputTokens, cachedTokens, price) {
+  // Цены в price — USD за 1M токенов: input, cached, output,
+  // необязательно long_threshold / long_input_mult / long_output_mult.
+  if (inputTokens < 0 || outputTokens < 0 || cachedTokens < 0) {
+    throw new RangeError("token counts must be non-negative");
+  }
+  if (cachedTokens > inputTokens) {
+    throw new RangeError("cached_tokens cannot exceed input_tokens");
+  }
+  var inputPrice = price.input;
+  var outputPrice = price.output;
+  var threshold = price.long_threshold;
+  if (threshold !== undefined && threshold !== null && inputTokens > threshold) {
+    inputPrice *= price.long_input_mult;
+    outputPrice *= price.long_output_mult;
+  }
+  var cost = ((inputTokens - cachedTokens) * inputPrice
+              + cachedTokens * price.cached
+              + outputTokens * outputPrice) / 1000000;
+  return roundTo6(cost);
+}
+
+function roundTo6(x) {
+  // toFixed округляет точное двоичное значение, как round() в Python;
+  // + 0 убирает отрицательный ноль.
+  return Number(x.toFixed(6)) + 0;
+}
+/* END cost.js */
+
+/* BEGIN model.js — сценарии и расчёты, проверяется test.mjs */
+var SCENARIOS = [
+  {
+    id: "dev",
+    title: "Разработчик с агентом",
+    desc: "ИИ-агент в редакторе кода: каждый шаг агента — отдельный запрос, в который снова уходит весь накопленный контекст. Большая его часть берётся из кеша.",
+    fields: [
+      ["hours", "Часов работы с агентом в день", 2, 0.5],
+      ["days", "Рабочих дней в месяце", 22, 1],
+      ["rph", "Запросов агента в час", 40, 1],
+      ["input", "Входных токенов на запрос (контекст)", 45000, 1000],
+      ["cachePct", "Доля входа из кеша, %", 85, 5],
+      ["output", "Выходных токенов на запрос", 1200, 100]
+    ],
+    derive: function (p) {
+      return {
+        requests: p.hours * p.rph * p.days,
+        input: p.input,
+        cached: p.input * clamp(p.cachePct, 0, 100) / 100,
+        output: p.output,
+        days: p.days
+      };
+    }
+  },
+  {
+    id: "support",
+    title: "Поддержка магазина",
+    desc: "Бот отвечает покупателям на русском. В каждый запрос уходит одинаковая инструкция с базой знаний (кешируется) и история диалога. Русский текст: примерно 1 токен на 3–4 символа, то есть 1,5–2 токена на слово.",
+    fields: [
+      ["tickets", "Обращений в месяц", 5000, 100],
+      ["replies", "Ответов бота на обращение", 4, 1],
+      ["system", "Инструкция и база знаний, токенов", 3000, 500],
+      ["history", "История диалога в запросе, токенов (в среднем)", 1200, 100],
+      ["output", "Выходных токенов на ответ", 300, 50],
+      ["days", "Дней работы в месяце", 30, 1]
+    ],
+    derive: function (p) {
+      return {
+        requests: p.tickets * p.replies,
+        input: p.system + p.history,
+        cached: p.system,
+        output: p.output,
+        days: p.days
+      };
+    }
+  },
+  {
+    id: "analyst",
+    title: "Аналитик: отчёты в PDF",
+    desc: "Аналитик загружает PDF и задаёт по нему несколько вопросов. Первый вопрос оплачивает документ по полной цене, следующие берут его из кеша.",
+    fields: [
+      ["pdfs", "PDF в месяц", 100, 10],
+      ["pages", "Страниц в PDF", 40, 5],
+      ["tpp", "Токенов на страницу", 900, 100],
+      ["questions", "Вопросов к документу", 5, 1],
+      ["prompt", "Вопрос и инструкция, токенов", 500, 100],
+      ["output", "Выходных токенов на ответ", 1500, 100],
+      ["days", "Рабочих дней в месяце", 22, 1]
+    ],
+    derive: function (p) {
+      var doc = p.pages * p.tpp;
+      var q = Math.max(p.questions, 1);
+      return {
+        requests: p.pdfs * q,
+        input: doc + p.prompt,
+        cached: doc * (q - 1) / q,
+        output: p.output,
+        days: p.days
+      };
+    }
+  }
+];
+
+var GPU_FIELDS = [
+  ["gpuPrice", "Цена RTX 4090 (или всего ПК), $", 1800, 50],
+  ["years", "Срок амортизации, лет", 3, 0.5],
+  ["tariff", "Тариф на электричество, ₽/кВт·ч", 7, 0.5],
+  ["rate", "Курс, ₽ за $", 90, 1],
+  ["loadW", "Потребление ПК под нагрузкой, Вт", 550, 10],
+  ["idleW", "Потребление ПК в простое, Вт", 80, 10],
+  ["hoursOn", "Часов в сутки ПК включён", 24, 1],
+  ["prefill", "Скорость обработки входа, токенов/с", 2500, 100],
+  ["gen", "Скорость генерации, токенов/с", 40, 5]
+];
+
+var SUBSCRIPTIONS = [20, 200];
+
+function clamp(x, lo, hi) { return Math.min(Math.max(x, lo), hi); }
+
+// Месячная стоимость сценария для одной модели.
+function monthCost(d, price) {
+  var perRequest = requestCost(d.input, d.output, d.cached, price);
+  return { perRequest: perRequest, month: perRequest * d.requests };
+}
+
+// Сколько запросов в месяц нужно, чтобы API стоил как подписка.
+function subscriptionBreakEven(perRequest, subscriptionUsd) {
+  return perRequest > 0 ? subscriptionUsd / perRequest : Infinity;
+}
+
+// Своя видеокарта против API. Возвращает порог в запросах и токенах в день.
+function gpuBreakEven(d, perRequest, g) {
+  var usdPerKwh = g.tariff / g.rate;
+  var fixedPerDay = g.gpuPrice / (g.years * 365) + g.idleW / 1000 * g.hoursOn * usdPerKwh;
+  var secondsPerRequest = (d.input - d.cached) / g.prefill + d.output / g.gen;
+  var extraW = Math.max(g.loadW - g.idleW, 0);
+  var localPerRequest = extraW / 1000 * secondsPerRequest / 3600 * usdPerKwh;
+  var tokensPerRequest = d.input + d.output;
+  var capacityRequests = secondsPerRequest > 0 ? g.hoursOn * 3600 / secondsPerRequest : Infinity;
+  var margin = perRequest - localPerRequest;
+  var requests = margin > 0 ? fixedPerDay / margin : Infinity;
+  return {
+    fixedPerDay: fixedPerDay,
+    localPerRequest: localPerRequest,
+    secondsPerRequest: secondsPerRequest,
+    requestsPerDay: requests,
+    tokensPerDay: requests * tokensPerRequest,
+    capacityRequestsPerDay: capacityRequests,
+    capacityTokensPerDay: capacityRequests * tokensPerRequest,
+    reachable: requests <= capacityRequests
+  };
+}
+/* END model.js */
+</script>
+
+<script>
+(function () {
+  "use strict";
+  var state = { scenario: "dev", params: {}, gpu: {} };
+  var prices = [];
+
+  var nf0 = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 });
+  var nf1 = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 1 });
+  function usd(x) {
+    if (!isFinite(x)) return "—";
+    var digits = x === 0 ? 2 : x < 0.01 ? 4 : x < 1 ? 3 : 2;
+    return "$" + new Intl.NumberFormat("ru-RU", { minimumFractionDigits: Math.min(digits, 2), maximumFractionDigits: digits }).format(x);
+  }
+  function tokens(x) {
+    if (!isFinite(x)) return "—";
+    if (x >= 1e9) return nf1.format(x / 1e9) + " млрд";
+    if (x >= 1e6) return nf1.format(x / 1e6) + " млн";
+    if (x >= 1e4) return nf1.format(x / 1e3) + " тыс.";
+    return nf0.format(x);
+  }
+  function plural(n, one, few, many) {
+    var k = Math.round(Math.abs(n)) % 100, k10 = k % 10;
+    if (k > 10 && k < 20) return many;
+    if (k10 === 1) return one;
+    if (k10 >= 2 && k10 <= 4) return few;
+    return many;
+  }
+  function requestsWord(n) { return plural(n, "запрос", "запроса", "запросов"); }
+  function el(tag, attrs, html) {
+    var e = document.createElement(tag);
+    for (var k in attrs || {}) e.setAttribute(k, attrs[k]);
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function scenario() {
+    return SCENARIOS.filter(function (s) { return s.id === state.scenario; })[0] || SCENARIOS[0];
+  }
+  function defaults(fields) {
+    var o = {};
+    fields.forEach(function (f) { o[f[0]] = f[2]; });
+    return o;
+  }
+
+  // --- адрес страницы хранит параметры, чтобы расчётом можно было поделиться
+  function readHash() {
+    var h = location.hash.replace(/^#/, "");
+    if (!h) return;
+    var q = new URLSearchParams(h);
+    if (q.get("s")) state.scenario = q.get("s");
+    var s = scenario();
+    state.scenario = s.id;
+    s.fields.forEach(function (f) { var v = parseFloat(q.get(f[0])); if (isFinite(v)) state.params[s.id][f[0]] = v; });
+    GPU_FIELDS.forEach(function (f) { var v = parseFloat(q.get("g_" + f[0])); if (isFinite(v)) state.gpu[f[0]] = v; });
+  }
+  function writeHash() {
+    var s = scenario(), q = new URLSearchParams();
+    q.set("s", s.id);
+    var def = defaults(s.fields);
+    s.fields.forEach(function (f) { if (state.params[s.id][f[0]] !== def[f[0]]) q.set(f[0], state.params[s.id][f[0]]); });
+    var gdef = defaults(GPU_FIELDS);
+    GPU_FIELDS.forEach(function (f) { if (state.gpu[f[0]] !== gdef[f[0]]) q.set("g_" + f[0], state.gpu[f[0]]); });
+    try { history.replaceState(null, "", "#" + q.toString()); } catch (e) { /* sandbox */ }
+  }
+
+  function renderFields(container, fields, values, onChange) {
+    container.innerHTML = "";
+    fields.forEach(function (f) {
+      var lab = el("label");
+      lab.appendChild(el("span", {}, esc(f[1])));
+      var inp = el("input", { type: "number", min: "0", step: String(f[3]), value: String(values[f[0]]), inputmode: "decimal" });
+      inp.addEventListener("input", function () {
+        var v = parseFloat(inp.value.replace(",", "."));
+        values[f[0]] = isFinite(v) ? v : 0;
+        onChange();
+      });
+      lab.appendChild(inp);
+      container.appendChild(lab);
+    });
+  }
+
+  function renderTabs() {
+    var tabs = document.getElementById("tabs");
+    tabs.innerHTML = "";
+    SCENARIOS.forEach(function (s) {
+      var b = el("button", { type: "button", role: "tab", "aria-selected": String(s.id === state.scenario) }, esc(s.title));
+      b.addEventListener("click", function () { state.scenario = s.id; renderScenario(); });
+      tabs.appendChild(b);
+    });
+  }
+
+  function renderScenario() {
+    var s = scenario();
+    renderTabs();
+    document.getElementById("scn-desc").textContent = s.desc;
+    renderFields(document.getElementById("scn-fields"), s.fields, state.params[s.id], update);
+    update();
+  }
+
+  function renderPrices() {
+    var t = document.getElementById("price-table");
+    var rows = "<thead><tr><th>Модель</th><th>Вход</th><th>Кеш</th><th>Выход</th><th>Длинный запрос</th><th>Дата</th><th>Источник</th></tr></thead><tbody>";
+    prices.forEach(function (m) {
+      var long = m.long_threshold ? "&gt; " + tokens(m.long_threshold) + ": ×" + m.long_input_mult + " / ×" + m.long_output_mult : "нет";
+      var status = m.verified ? "" : ' <span class="tag warn">сверить</span>';
+      var src = /^https?:/.test(m.source) ? '<a href="' + esc(m.source) + '" target="_blank" rel="noopener">ссылка</a>' : esc(m.source);
+      rows += "<tr><td>" + esc(m.name) + status + (m.note ? "<small>" + esc(m.note) + "</small>" : "") + "</td><td>" + usd(m.input) + "</td><td>" + usd(m.cached) + "</td><td>" + usd(m.output) + "</td><td>" + long + "</td><td>" + esc(m.date) + "</td><td>" + src + "</td></tr>";
+    });
+    t.innerHTML = rows + "</tbody>";
+    document.getElementById("price-notice").style.display = prices.some(function (m) { return !m.verified; }) ? "" : "none";
+  }
+
+  function update() {
+    var s = scenario();
+    var errBox = document.getElementById("scn-error");
+    errBox.innerHTML = "";
+    var d = s.derive(state.params[s.id]);
+    var tokensPerRequest = d.input + d.output;
+    var perDay = d.days > 0 ? d.requests / d.days : 0;
+    document.getElementById("scn-summary").innerHTML =
+      "<div>Запросов в месяц: <b>" + nf0.format(d.requests) + "</b></div>" +
+      "<div>На запрос: <b>" + tokens(d.input) + "</b> вход (из них <b>" + tokens(d.cached) + "</b> из кеша), <b>" + tokens(d.output) + "</b> выход</div>" +
+      "<div>Токенов в день: <b>" + tokens(perDay * tokensPerRequest) + "</b></div>";
+
+    var results = [];
+    try {
+      prices.forEach(function (m) { results.push({ m: m, c: monthCost(d, m) }); });
+    } catch (e) {
+      errBox.innerHTML = '<div class="err">Проверьте параметры: кешированных токенов не может быть больше входных, значения не могут быть отрицательными.</div>';
+      document.getElementById("cost-table").innerHTML = "";
+      document.getElementById("gpu-table").innerHTML = "";
+      writeHash();
+      postHeight();
+      return;
+    }
+
+    var head = "<thead><tr><th>Модель</th><th>Запрос</th><th>Месяц</th>";
+    SUBSCRIPTIONS.forEach(function (sub) { head += "<th>Порог подписки $" + sub + "</th>"; });
+    head += "</tr></thead>";
+    var body = "<tbody>";
+    results.forEach(function (r) {
+      body += "<tr><td>" + esc(r.m.name) + "</td><td>" + usd(r.c.perRequest) + "</td><td><b>" + usd(r.c.month) + "</b></td>";
+      SUBSCRIPTIONS.forEach(function (sub) {
+        var be = subscriptionBreakEven(r.c.perRequest, sub);
+        var cheaper = r.c.month > sub;
+        var tag = cheaper ? '<span class="tag good">выгоднее подписка</span>' : '<span class="tag bad">выгоднее API</span>';
+        var share = d.requests > 0 && isFinite(be) ? " (" + nf0.format(be / d.requests * 100) + "% сценария)" : "";
+        body += "<td>" + tag + "<small>" + (isFinite(be) ? nf0.format(be) + " " + requestsWord(be) + "/мес" + share + "<br>≈ " + tokens(be / Math.max(d.days, 1) * tokensPerRequest) + " токенов/день" : "—") + "</small></td>";
+      });
+      body += "</tr>";
+    });
+    document.getElementById("cost-table").innerHTML = head + body + "</tbody>";
+
+    // RTX 4090
+    var g = state.gpu, gpuBody = "<tbody>";
+    var first = null;
+    results.forEach(function (r) {
+      var b = gpuBreakEven(d, r.c.perRequest, g);
+      first = first || b;
+      var verdict;
+      if (!isFinite(b.requestsPerDay)) verdict = '<span class="tag bad">не окупается</span><small>электричество на запрос дороже API</small>';
+      else if (!b.reachable) verdict = '<span class="tag bad">не окупается</span><small>карта не успеет: максимум ' + tokens(b.capacityTokensPerDay) + " токенов/день</small>";
+      else if (perDay >= b.requestsPerDay) verdict = '<span class="tag good">выгоднее своя карта</span><small>при текущем объёме сценария</small>';
+      else verdict = '<span class="tag warn">выгоднее API</span><small>сценарий: ' + nf0.format(perDay / b.requestsPerDay * 100) + "% от порога</small>";
+      gpuBody += "<tr><td>" + esc(r.m.name) + "</td><td>" + usd(r.c.perRequest) + "</td><td><b>" + (isFinite(b.tokensPerDay) ? tokens(b.tokensPerDay) : "—") + "</b><small>" + (isFinite(b.requestsPerDay) ? nf0.format(b.requestsPerDay) + " " + requestsWord(b.requestsPerDay) + "/день" : "") + "</small></td><td>" + verdict + "</td></tr>";
+    });
+    document.getElementById("gpu-table").innerHTML = "<thead><tr><th>Модель API</th><th>Запрос в API</th><th>Порог: токенов в день</th><th>Итог</th></tr></thead>" + gpuBody + "</tbody>";
+    if (first) {
+      document.getElementById("gpu-summary").innerHTML =
+        "<div>Амортизация и простой: <b>" + usd(first.fixedPerDay) + "</b> в день (" + usd(first.fixedPerDay * 30) + " в месяц)</div>" +
+        "<div>Запрос локально: <b>" + nf1.format(first.secondsPerRequest) + " с</b>, электричество <b>" + usd(first.localPerRequest) + "</b></div>" +
+        "<div>Предел карты: <b>" + tokens(first.capacityTokensPerDay) + "</b> токенов в день</div>";
+    }
+    writeHash();
+    postHeight();
+  }
+
+  // Высота для iframe: родительская страница может подстроить размер (см. README).
+  function postHeight() {
+    if (window.parent === window) return;
+    try { window.parent.postMessage({ type: "nh-cost-calculator:height", height: document.documentElement.scrollHeight }, "*"); } catch (e) { /* ignore */ }
+  }
+  window.addEventListener("resize", postHeight);
+
+  function init(data) {
+    prices = data.models;
+    SCENARIOS.forEach(function (s) { state.params[s.id] = defaults(s.fields); });
+    state.gpu = defaults(GPU_FIELDS);
+    readHash();
+    renderPrices();
+    renderFields(document.getElementById("gpu-fields"), GPU_FIELDS, state.gpu, update);
+    renderScenario();
+  }
+
+  document.getElementById("reset").addEventListener("click", function (e) {
+    e.preventDefault();
+    try { history.replaceState(null, "", location.pathname + location.search); } catch (err) { /* sandbox */ }
+    init({ models: prices });
+  });
+
+  var fallback = JSON.parse(document.getElementById("prices-fallback").textContent);
+  if (location.protocol === "file:") { init(fallback); return; }
+  fetch("prices.json", { cache: "no-cache" })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (data) { if (!data || !Array.isArray(data.models)) throw new Error("bad prices"); init(data); })
+    .catch(function () { init(fallback); });
+})();
+</script>
+</body>
+</html>
