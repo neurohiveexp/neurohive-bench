@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "feature_subfactorial",
+      "type": "feature",
+      "repo": "https://github.com/more-itertools/more-itertools",
+      "commit": "0c48044a70bae53fed919526bb1229d459a3e496",
+      "prompt_file": "tasks/feature_subfactorial/prompt.md",
+      "test_cmd": "python -m unittest -q tests.test_more.TestSubfactorial tests.test_more.DerangementsTests",
+      "hidden_tests": [
+        {"from_commit": "842a2b17a8e3f78462fe20cd4a88abd32085c111", "path": "tests/test_more.py"}
+      ],
+      "source": "https://github.com/more-itertools/more-itertools/commit/842a2b17a8e3f78462fe20cd4a88abd32085c111",
+      "agent_timeout_s": 1200,
+      "test_timeout_s": 300
+    },
+    {
+      "id": "bugfix_bucket_phantom_keys",
+      "type": "bugfix",
+      "repo": "https://github.com/more-itertools/more-itertools",
+      "commit": "2b8d5cddce4ea01f88a973551cd50479cf5fa45f^",
+      "prompt_file": "tasks/bugfix_bucket_phantom_keys/prompt.md",
+      "test_cmd": "python -m unittest -q tests.test_more.BucketTests",
+      "hidden_tests": [
+        {"from_commit": "2b8d5cddce4ea01f88a973551cd50479cf5fa45f", "path": "tests/test_more.py"}
+      ],
+      "issue": "https://github.com/more-itertools/more-itertools/issues/1284",
+      "fix_commit": "2b8d5cddce4ea01f88a973551cd50479cf5fa45f",
+      "agent_timeout_s": 1200,
+      "test_timeout_s": 300
+    },
+    {
+      "id": "greenfield_meter_bills",
+      "type": "greenfield",
+      "repo": null,
+      "commit": null,
+      "prompt_file": "tasks/greenfield_meter_bills/prompt.md",
+      "test_cmd": "python -m unittest -q test_hidden_meter",
+      "hidden_tests": [
+        {"file": "tasks/greenfield_meter_bills/hidden_test_meter.py", "path": "test_hidden_meter.py"}
+      ],
+      "agent_timeout_s": 1800,
+      "test_timeout_s": 300
+    }
+  ]
+}

@@ -5,3 +5,5 @@ __pycache__/
 .env
 prompts/
 report.md
+blind/
+*.key.json
