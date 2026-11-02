@@ -67,6 +67,10 @@ Prices are USD per 1M tokens; check the provider's page on the day of the test. 
 - **Solved:** the task passed in the majority of runs.
 - **Cost per passed run:** all money spent, including failed runs, divided by passed runs. This is the "price of a solved task" used in our articles.
 
+## Tools
+
+[`tools/cost-calculator`](tools/cost-calculator/) is a single-page calculator (in Russian) of monthly API cost for three typical scenarios, with break-even points against $20 / $200 subscriptions and an own RTX 4090. It uses the same cost formula as `bench/cost.py`; test with `node --test tools/cost-calculator/test.mjs`.
+
 ## Safety
 
 Code tasks execute model-generated code in a subprocess with a timeout. Run the bench in a container or VM, not on a machine with secrets. Use a separate API key with a spending limit.
