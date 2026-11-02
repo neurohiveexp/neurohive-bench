@@ -1,0 +1,15 @@
+{
+  "name": "neurohive-tokenizer-test",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node count.mjs"
+  },
+  "dependencies": {
+    "@lenml/tokenizer-deepseek_v4": "^3.7.2",
+    "@lenml/tokenizer-gemma3": "^3.7.2",
+    "@lenml/tokenizer-gpt4o": "^3.7.2",
+    "@lenml/tokenizer-qwen3": "^3.7.2",
+    "gpt-tokenizer": "^4.1.0"
+  }
+}
