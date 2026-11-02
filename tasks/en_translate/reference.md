@@ -1,0 +1,1 @@
+A model with open weights can be run on your own server. This requires a GPU with 24 GB of memory and quantization down to 4 bits. In our test, the generation speed was 38 tokens per second, and the context window was 128 thousand tokens.

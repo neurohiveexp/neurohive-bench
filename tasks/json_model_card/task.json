@@ -1,0 +1,22 @@
+{
+  "id": "json_model_card",
+  "version": 1,
+  "title": "Press release → model card JSON",
+  "category": "json",
+  "language": "en",
+  "skills": ["extraction", "distractor_resistance", "json"],
+  "notes": "Distractors: Kestrel-1 numbers (128,000 tokens, 140B, custom license), Kestrel-2 Mini (9B), API date October 1, training tokens 31T.",
+  "check": {
+    "rules": [
+      {"type": "json_object", "expected": "reference.json", "fields": {
+        "model_name": "alnum_ci",
+        "organization": "alnum_ci",
+        "total_params_b": "number",
+        "active_params_b": "number",
+        "context_tokens": "number",
+        "license": "spdx",
+        "release_date": "exact"
+      }}
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "json_receipts",
+  "version": 1,
+  "title": "Чеки → JSON",
+  "category": "json",
+  "language": "ru",
+  "skills": ["extraction", "normalization", "json"],
+  "notes": "Ловушки: в чеке 2 сумма 386, а не 500 полученных; в чеке 3 магазин — «Северный путь», а не юрлицо «СевНефтеТорг»; в чеке 4 дата 15/10/26 и сумма 742.5 без второго знака.",
+  "check": {
+    "rules": [
+      {"type": "json_records", "expected": "reference.json", "fields": {
+        "store": "contains_ci",
+        "date": "exact",
+        "total": "number",
+        "payment": "exact_ci"
+      }}
+    ]
+  }
+}

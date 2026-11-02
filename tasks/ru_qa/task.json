@@ -1,0 +1,17 @@
+{
+  "id": "ru_qa",
+  "version": 1,
+  "title": "Вопросы по тексту: расчёт и честное «нет данных»",
+  "category": "text_ru",
+  "language": "ru",
+  "skills": ["reading_comprehension", "arithmetic", "hallucination_resistance"],
+  "notes": "1) 200 × 6,48 + 100 × 3,12 = 1608; коэффициент 0,7 к газовой плите не относится (ловушка: 1125,6). 2) В тексте нет сведений о садовых товариществах.",
+  "check": {
+    "rules": [
+      {"type": "numbered_answers", "answers": [
+        {"n": 1, "number": 1608, "tolerance": 0.5},
+        {"n": 2, "text": "нет данных"}
+      ]}
+    ]
+  }
+}

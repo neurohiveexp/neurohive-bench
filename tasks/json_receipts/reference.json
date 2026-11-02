@@ -1,0 +1,6 @@
+[
+  {"store": "Лента-Север", "date": "2026-10-12", "total": 1254.90, "payment": "card"},
+  {"store": "Пекарня у моста", "date": "2026-10-13", "total": 386.00, "payment": "cash"},
+  {"store": "Северный путь", "date": "2026-10-14", "total": 3120.00, "payment": "card"},
+  {"store": "Здоровье+", "date": "2026-10-15", "total": 742.50, "payment": "cash"}
+]

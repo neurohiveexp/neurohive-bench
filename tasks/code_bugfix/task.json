@@ -1,0 +1,14 @@
+{
+  "id": "code_bugfix",
+  "version": 1,
+  "title": "Исправить пагинацию: 5 ошибок в двух функциях",
+  "category": "code",
+  "language": "ru",
+  "skills": ["python", "debugging", "off_by_one"],
+  "notes": "Ошибки: неверное начало страницы, лишнее −1 в конце среза, нет проверки аргументов в paginate; деление без округления вверх и нет проверки аргументов в total_pages.",
+  "check": {
+    "rules": [
+      {"type": "python_tests", "function": "paginate", "tests": "tests.py", "timeout": 20}
+    ]
+  }
+}

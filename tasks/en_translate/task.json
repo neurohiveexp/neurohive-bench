@@ -1,0 +1,24 @@
+{
+  "id": "en_translate",
+  "version": 1,
+  "title": "Russian → English translation with a glossary",
+  "category": "text_en",
+  "language": "en",
+  "skills": ["translation", "terminology", "instruction_following"],
+  "check": {
+    "rules": [
+      {"type": "no_cyrillic"},
+      {"type": "word_count", "min": 25, "max": 80},
+      {"type": "facts", "groups": [
+        {"name": "open weights", "any": ["(?i)open weights"]},
+        {"name": "quantization", "any": ["(?i)quantization"]},
+        {"name": "context window", "any": ["(?i)context window"]},
+        {"name": "GPU", "any": ["\\bGPU"]},
+        {"name": "24 GB", "any": ["\\b24\\b"]},
+        {"name": "4 bits", "any": ["\\b4\\b", "4-bit", "four bits"]},
+        {"name": "38 tokens/s", "any": ["\\b38\\b"]},
+        {"name": "128 thousand", "any": ["\\b128\\b", "128,000", "128K"]}
+      ]}
+    ]
+  }
+}

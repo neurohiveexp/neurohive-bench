@@ -1,0 +1,13 @@
+{
+  "id": "logic_pricing",
+  "version": 1,
+  "title": "Подписка или оплата по факту: порог и экономия",
+  "category": "logic",
+  "language": "ru",
+  "skills": ["arithmetic", "piecewise_reasoning", "answer_format"],
+  "check": {
+    "rules": [
+      {"type": "final_answer", "prefix": "ОТВЕТ:", "values": [667, 360], "tolerance": 0.01}
+    ]
+  }
+}
