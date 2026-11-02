@@ -1,5 +1,5 @@
 {
-  "_comment": "Цены в USD за 1 млн токенов. ПРИМЕРЫ — сверить с официальными страницами перед публикацией (verified: false). Длинный запрос: если входных токенов строго больше long_threshold, вход и выход умножаются на long_input_mult и long_output_mult; цена кеша не меняется (как в bench/cost.py).",
+  "_comment": "Цены в USD за 1 млн токенов, сверены с официальными страницами провайдеров 2026-11-02. Длинный запрос: если входных токенов строго больше long_threshold, вход и выход умножаются на long_input_mult и long_output_mult; цена кеша не меняется (как в bench/cost.py). Надбавка за запись в кеш (у Claude +25% к цене входа) в формуле не учитывается.",
   "currency": "USD",
   "unit": "per_1m_tokens",
   "models": [
@@ -12,24 +12,24 @@
       "long_threshold": null,
       "long_input_mult": null,
       "long_output_mult": null,
-      "date": "2026-10-06",
+      "date": "2026-11-02",
       "source": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "verified": false,
-      "note": "сверить перед публикацией"
+      "verified": true,
+      "note": "запись в кеш $5 (5 мин) в расчёт не входит"
     },
     {
       "id": "claude-sonnet-5-5",
       "name": "Claude Sonnet 5.5",
       "input": 2.0,
       "output": 10.0,
-      "cached": 0.2,
+      "cached": 0.1,
       "long_threshold": null,
       "long_input_mult": null,
       "long_output_mult": null,
-      "date": "2026-10-06",
+      "date": "2026-11-02",
       "source": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "verified": false,
-      "note": "сверить перед публикацией"
+      "verified": true,
+      "note": "запись в кеш $2,50 (5 мин) в расчёт не входит"
     },
     {
       "id": "claude-haiku-5-5",
@@ -40,38 +40,80 @@
       "long_threshold": 100000,
       "long_input_mult": 5.0,
       "long_output_mult": 5.0,
-      "date": "2026-10-06",
+      "date": "2026-11-02",
       "source": "https://platform.claude.com/docs/en/about-claude/pricing",
-      "verified": false,
-      "note": "сверить перед публикацией: цена кеша — оценка (10% от входа); свыше 100K входных токенов $0.50 / $2.50"
+      "verified": true,
+      "note": "свыше 100 тыс. входных токенов $0,50 / $2,50, кеш $0,05 (в калькуляторе кеш не меняется)"
     },
     {
-      "id": "deepseek-v4.1-flash",
-      "name": "DeepSeek V4.1 Flash (пример)",
+      "id": "gpt-6.1-sol",
+      "name": "GPT-6.1 Sol",
+      "input": 2.0,
+      "output": 10.0,
+      "cached": 0.1,
+      "long_threshold": null,
+      "long_input_mult": null,
+      "long_output_mult": null,
+      "date": "2026-11-02",
+      "source": "https://developers.openai.com/api/docs/pricing",
+      "verified": true,
+      "note": "свыше 272 тыс. входных токенов цена другая, OpenAI её на странице не показывает"
+    },
+    {
+      "id": "gemini-4-argon",
+      "name": "Gemini 4 Argon (до 30.11.2026)",
+      "input": 2.0,
+      "output": 10.0,
+      "cached": 0.1,
+      "long_threshold": null,
+      "long_input_mult": null,
+      "long_output_mult": null,
+      "date": "2026-11-02",
+      "source": "https://ai.google.dev/gemini-api/docs/pricing",
+      "verified": true,
+      "note": "вводная цена до 30.11.2026"
+    },
+    {
+      "id": "gemini-4-argon-dec",
+      "name": "Gemini 4 Argon (с 01.12.2026)",
+      "input": 4.0,
+      "output": 20.0,
+      "cached": 0.2,
+      "long_threshold": null,
+      "long_input_mult": null,
+      "long_output_mult": null,
+      "date": "2026-11-02",
+      "source": "https://ai.google.dev/gemini-api/docs/pricing",
+      "verified": true,
+      "note": "цена с 01.12.2026"
+    },
+    {
+      "id": "deepseek-flash-offpeak",
+      "name": "DeepSeek V4.1 Flash (не пик)",
       "input": 0.15,
       "output": 0.6,
-      "cached": 0.03,
+      "cached": 0.003,
       "long_threshold": null,
       "long_input_mult": null,
       "long_output_mult": null,
       "date": "2026-11-02",
       "source": "https://api-docs.deepseek.com/quick_start/pricing",
-      "verified": false,
-      "note": "сверить перед публикацией: цифры из примера в README бенчмарка"
+      "verified": true,
+      "note": "вне часов пик: будни кроме 01:00–04:00 и 06:00–10:00 UTC, выходные"
     },
     {
-      "id": "example-long-context",
-      "name": "Модель с надбавкой за длинный запрос (пример)",
-      "input": 2.0,
-      "output": 10.0,
-      "cached": 0.2,
-      "long_threshold": 272000,
-      "long_input_mult": 2.0,
-      "long_output_mult": 1.5,
+      "id": "deepseek-flash-peak",
+      "name": "DeepSeek V4.1 Flash (пик)",
+      "input": 0.3,
+      "output": 1.2,
+      "cached": 0.006,
+      "long_threshold": null,
+      "long_input_mult": null,
+      "long_output_mult": null,
       "date": "2026-11-02",
-      "source": "tasks/code_cost/tests.py",
-      "verified": false,
-      "note": "условный тариф из тестов задачи code_cost; заменить реальной моделью или удалить перед публикацией"
+      "source": "https://api-docs.deepseek.com/quick_start/pricing",
+      "verified": true,
+      "note": "часы пик: будни 01:00–04:00 и 06:00–10:00 UTC (04–07 и 09–13 по Москве)"
     }
   ]
 }
