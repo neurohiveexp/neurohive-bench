@@ -1,0 +1,186 @@
+{
+ "date": "2026-11-02",
+ "note": "token counts, same texts in Russian and English; see texts.json",
+ "results": [
+  {
+   "tokenizer": "cl100k (GPT-4, GPT-3.5, 2023)",
+   "ruTotal": 1018,
+   "enTotal": 572,
+   "ratio": 1.78,
+   "per": {
+    "news": {
+     "ru": 110,
+     "en": 56,
+     "ratio": 1.96,
+     "ruPerWord": 2.82,
+     "enPerWord": 1.22
+    },
+    "support": {
+     "ru": 327,
+     "en": 178,
+     "ratio": 1.84,
+     "ruPerWord": 2.84,
+     "enPerWord": 1.3
+    },
+    "report": {
+     "ru": 369,
+     "en": 181,
+     "ratio": 2.04,
+     "ruPerWord": 3.39,
+     "enPerWord": 1.39
+    },
+    "code": {
+     "ru": 212,
+     "en": 157,
+     "ratio": 1.35,
+     "ruPerWord": 2.68,
+     "enPerWord": 1.78
+    }
+   }
+  },
+  {
+   "tokenizer": "o200k (GPT-4o / GPT-5)",
+   "ruTotal": 658,
+   "enTotal": 568,
+   "ratio": 1.16,
+   "per": {
+    "news": {
+     "ru": 69,
+     "en": 56,
+     "ratio": 1.23,
+     "ruPerWord": 1.77,
+     "enPerWord": 1.22
+    },
+    "support": {
+     "ru": 202,
+     "en": 176,
+     "ratio": 1.15,
+     "ruPerWord": 1.76,
+     "enPerWord": 1.28
+    },
+    "report": {
+     "ru": 219,
+     "en": 178,
+     "ratio": 1.23,
+     "ruPerWord": 2.01,
+     "enPerWord": 1.37
+    },
+    "code": {
+     "ru": 168,
+     "en": 158,
+     "ratio": 1.06,
+     "ruPerWord": 2.13,
+     "enPerWord": 1.8
+    }
+   }
+  },
+  {
+   "tokenizer": "Gemma 3 (ближайший открытый к Gemini)",
+   "ruTotal": 698,
+   "enTotal": 625,
+   "ratio": 1.12,
+   "per": {
+    "news": {
+     "ru": 72,
+     "en": 59,
+     "ratio": 1.22,
+     "ruPerWord": 1.85,
+     "enPerWord": 1.28
+    },
+    "support": {
+     "ru": 205,
+     "en": 188,
+     "ratio": 1.09,
+     "ruPerWord": 1.78,
+     "enPerWord": 1.37
+    },
+    "report": {
+     "ru": 223,
+     "en": 192,
+     "ratio": 1.16,
+     "ruPerWord": 2.05,
+     "enPerWord": 1.48
+    },
+    "code": {
+     "ru": 198,
+     "en": 186,
+     "ratio": 1.06,
+     "ruPerWord": 2.51,
+     "enPerWord": 2.11
+    }
+   }
+  },
+  {
+   "tokenizer": "DeepSeek V4",
+   "ruTotal": 759,
+   "enTotal": 586,
+   "ratio": 1.3,
+   "per": {
+    "news": {
+     "ru": 80,
+     "en": 55,
+     "ratio": 1.45,
+     "ruPerWord": 2.05,
+     "enPerWord": 1.2
+    },
+    "support": {
+     "ru": 245,
+     "en": 180,
+     "ratio": 1.36,
+     "ruPerWord": 2.13,
+     "enPerWord": 1.31
+    },
+    "report": {
+     "ru": 242,
+     "en": 179,
+     "ratio": 1.35,
+     "ruPerWord": 2.22,
+     "enPerWord": 1.38
+    },
+    "code": {
+     "ru": 192,
+     "en": 172,
+     "ratio": 1.12,
+     "ruPerWord": 2.43,
+     "enPerWord": 1.95
+    }
+   }
+  },
+  {
+   "tokenizer": "Qwen3",
+   "ruTotal": 820,
+   "enTotal": 604,
+   "ratio": 1.36,
+   "per": {
+    "news": {
+     "ru": 93,
+     "en": 60,
+     "ratio": 1.55,
+     "ruPerWord": 2.38,
+     "enPerWord": 1.3
+    },
+    "support": {
+     "ru": 263,
+     "en": 189,
+     "ratio": 1.39,
+     "ruPerWord": 2.29,
+     "enPerWord": 1.38
+    },
+    "report": {
+     "ru": 277,
+     "en": 194,
+     "ratio": 1.43,
+     "ruPerWord": 2.54,
+     "enPerWord": 1.49
+    },
+    "code": {
+     "ru": 187,
+     "en": 161,
+     "ratio": 1.16,
+     "ruPerWord": 2.37,
+     "enPerWord": 1.83
+    }
+   }
+  }
+ ]
+}
