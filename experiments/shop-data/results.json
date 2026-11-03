@@ -1,0 +1,44 @@
+{
+ "orders_1000.csv": {
+  "chars": 105467,
+  "o200k": 51346,
+  "gemma3": 78105,
+  "deepseek_v4": 56048,
+  "qwen3": 78691
+ },
+ "orders_1000.md": {
+  "chars": 128536,
+  "o200k": 55925,
+  "gemma3": 82170,
+  "deepseek_v4": 60651,
+  "qwen3": 83505
+ },
+ "orders_1000.json": {
+  "chars": 252378,
+  "o200k": 101585,
+  "gemma3": 131074,
+  "deepseek_v4": 108464,
+  "qwen3": 128749
+ },
+ "events_1000.jsonl": {
+  "chars": 423112,
+  "o200k": 165294,
+  "gemma3": 205336,
+  "deepseek_v4": 171258,
+  "qwen3": 197236
+ },
+ "schema.sql": {
+  "chars": 1538,
+  "o200k": 346,
+  "gemma3": 418,
+  "deepseek_v4": 419,
+  "qwen3": 364
+ },
+ "sql_result_200.csv": {
+  "chars": 10306,
+  "o200k": 5866,
+  "gemma3": 9086,
+  "deepseek_v4": 5996,
+  "qwen3": 9357
+ }
+}
