@@ -6,3 +6,5 @@ __pycache__/
 prompts/
 report.md
 node_modules/
+blind/
+*.key.json

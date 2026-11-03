@@ -71,6 +71,10 @@ Prices are USD per 1M tokens; check the provider's page on the day of the test. 
 
 [`tools/cost-calculator`](tools/cost-calculator/) is a single-page calculator (in Russian) of monthly API cost for three typical scenarios, with break-even points against $20 / $200 subscriptions and an own RTX 4090. It uses the same cost formula as `bench/cost.py`; test with `node --test tools/cost-calculator/test.mjs`.
 
+## Experiments
+
+[`experiments/agents`](experiments/agents/) compares coding agents (Claude Code, Codex, OpenCode, Kimi Code) on the same repository tasks: a clean checkout per run, non-interactive agent runs, hidden tests, time/tokens/cost in `results/agents/*.jsonl`, blind A/B/C/D diff export and cost per solved task. Docs in Russian; tests: `python -m pytest experiments/agents/tests`.
+
 ## Safety
 
 Code tasks execute model-generated code in a subprocess with a timeout. Run the bench in a container or VM, not on a machine with secrets. Use a separate API key with a spending limit.

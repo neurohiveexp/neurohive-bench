@@ -1,0 +1,38 @@
+{
+  "claude": {
+    "title": "Claude Code",
+    "cmd": ["claude", "-p", "{prompt}", "--output-format", "json", "--dangerously-skip-permissions"],
+    "model_args": ["--model", "{model}"],
+    "model": null,
+    "version_cmd": ["claude", "--version"],
+    "parser": "claude",
+    "install": "npm install -g @anthropic-ai/claude-code; ключ: ANTHROPIC_API_KEY или вход через `claude` по подписке"
+  },
+  "codex": {
+    "title": "Codex CLI",
+    "cmd": ["codex", "exec", "--json", "--skip-git-repo-check", "--dangerously-bypass-approvals-and-sandbox", "{prompt}"],
+    "model_args": ["-m", "{model}"],
+    "model": null,
+    "version_cmd": ["codex", "--version"],
+    "parser": "codex",
+    "install": "npm install -g @openai/codex; ключ: OPENAI_API_KEY или `codex login`"
+  },
+  "opencode": {
+    "title": "OpenCode",
+    "cmd": ["opencode", "run", "--format", "json", "{prompt}"],
+    "model_args": ["-m", "{model}"],
+    "model": null,
+    "version_cmd": ["opencode", "--version"],
+    "parser": "opencode",
+    "install": "npm install -g opencode-ai; ключ провайдера: `opencode auth login`"
+  },
+  "kimi": {
+    "title": "Kimi Code",
+    "cmd": ["kimi", "--print", "--output-format", "stream-json", "-c", "{prompt}"],
+    "model_args": ["-m", "{model}"],
+    "model": null,
+    "version_cmd": ["kimi", "--version"],
+    "parser": "generic",
+    "install": "uv tool install kimi-cli; ключ: MOONSHOT_API_KEY или `kimi` → /login"
+  }
+}
