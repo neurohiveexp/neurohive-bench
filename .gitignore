@@ -5,5 +5,6 @@ __pycache__/
 .env
 prompts/
 report.md
+node_modules/
 blind/
 *.key.json
