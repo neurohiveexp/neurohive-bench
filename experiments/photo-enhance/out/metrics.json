@@ -1,0 +1,418 @@
+{
+ "small": {
+  "small_kodim01": {
+   "bicubic": {
+    "psnr": 21.7,
+    "ssim": 0.4411
+   },
+   "realesrgan_x4plus": {
+    "psnr": 21.21,
+    "ssim": 0.469
+   },
+   "realesr_general_v3": {
+    "psnr": 21.19,
+    "ssim": 0.493
+   },
+   "swinir_gan": {
+    "psnr": 21.65,
+    "ssim": 0.4878
+   }
+  },
+  "small_kodim08": {
+   "bicubic": {
+    "psnr": 19.31,
+    "ssim": 0.4978
+   },
+   "realesrgan_x4plus": {
+    "psnr": 18.87,
+    "ssim": 0.5327
+   },
+   "realesr_general_v3": {
+    "psnr": 18.03,
+    "ssim": 0.536
+   },
+   "swinir_gan": {
+    "psnr": 18.48,
+    "ssim": 0.536
+   }
+  },
+  "small_kodim13": {
+   "bicubic": {
+    "psnr": 20.24,
+    "ssim": 0.3998
+   },
+   "realesrgan_x4plus": {
+    "psnr": 19.48,
+    "ssim": 0.3649
+   },
+   "realesr_general_v3": {
+    "psnr": 19.91,
+    "ssim": 0.3935
+   },
+   "swinir_gan": {
+    "psnr": 19.32,
+    "ssim": 0.3578
+   }
+  },
+  "small_kodim23": {
+   "bicubic": {
+    "psnr": 27.42,
+    "ssim": 0.8106
+   },
+   "realesrgan_x4plus": {
+    "psnr": 27.73,
+    "ssim": 0.8229
+   },
+   "realesr_general_v3": {
+    "psnr": 27.15,
+    "ssim": 0.8288
+   },
+   "swinir_gan": {
+    "psnr": 27.44,
+    "ssim": 0.8251
+   }
+  }
+ },
+ "face": {
+  "face_light_kodim04": {
+   "_box": [
+    115,
+    193,
+    409,
+    562
+   ],
+   "bicubic": {
+    "identity": 0.884,
+    "face_psnr": 27.5,
+    "face_ssim": 0.6783
+   },
+   "realesrgan_x4plus": {
+    "identity": 0.835,
+    "face_psnr": 27.48,
+    "face_ssim": 0.6879
+   },
+   "swinir_gan": {
+    "identity": 0.85,
+    "face_psnr": 28.06,
+    "face_ssim": 0.6993
+   },
+   "gfpgan": {
+    "identity": 0.827,
+    "face_psnr": 27.67,
+    "face_ssim": 0.692
+   }
+  },
+  "face_heavy_kodim04": {
+   "_box": [
+    115,
+    193,
+    409,
+    562
+   ],
+   "bicubic": {
+    "identity": 0.845,
+    "face_psnr": 26.7,
+    "face_ssim": 0.6554
+   },
+   "realesrgan_x4plus": {
+    "identity": 0.755,
+    "face_psnr": 27.28,
+    "face_ssim": 0.674
+   },
+   "swinir_gan": {
+    "identity": 0.781,
+    "face_psnr": 27.51,
+    "face_ssim": 0.6801
+   },
+   "gfpgan": {
+    "identity": 0.781,
+    "face_psnr": 27.28,
+    "face_ssim": 0.6698
+   }
+  },
+  "face_light_kodim15": {
+   "_box": [
+    372,
+    8,
+    725,
+    435
+   ],
+   "bicubic": {
+    "identity": 0.899,
+    "face_psnr": 25.7,
+    "face_ssim": 0.7069
+   },
+   "realesrgan_x4plus": {
+    "identity": 0.873,
+    "face_psnr": 26.27,
+    "face_ssim": 0.7354
+   },
+   "swinir_gan": {
+    "identity": 0.89,
+    "face_psnr": 26.79,
+    "face_ssim": 0.7411
+   },
+   "gfpgan": {
+    "identity": 0.839,
+    "face_psnr": 26.08,
+    "face_ssim": 0.732
+   }
+  },
+  "face_heavy_kodim15": {
+   "_box": [
+    372,
+    8,
+    725,
+    435
+   ],
+   "bicubic": {
+    "identity": 0.86,
+    "face_psnr": 24.79,
+    "face_ssim": 0.6849
+   },
+   "realesrgan_x4plus": {
+    "identity": 0.809,
+    "face_psnr": 26.01,
+    "face_ssim": 0.7201
+   },
+   "swinir_gan": {
+    "identity": 0.84,
+    "face_psnr": 26.26,
+    "face_ssim": 0.7236
+   },
+   "gfpgan": {
+    "identity": 0.76,
+    "face_psnr": 25.76,
+    "face_ssim": 0.7136
+   }
+  },
+  "_different_people": 0.064
+ },
+ "text": {
+  "text_notice": {
+   "bicubic": {
+    "psnr": 20.91,
+    "ssim": 0.7464
+   },
+   "realesrgan_x4plus": {
+    "psnr": 21.42,
+    "ssim": 0.833
+   },
+   "realesr_general_v3": {
+    "psnr": 20.93,
+    "ssim": 0.8293
+   },
+   "swinir_gan": {
+    "psnr": 22.31,
+    "ssim": 0.8389
+   }
+  },
+  "_ocr": {
+   "gt": {
+    "cer": 0.024,
+    "lines": [
+     {
+      "px": 11.0,
+      "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+      "cer": 0.059
+     },
+     {
+      "px": 8.5,
+      "read": "Отключение воды 14.03.2026",
+      "cer": 0.0
+     },
+     {
+      "px": 7.0,
+      "read": "c 09.00 до 18:30, дом 18, корп. 3",
+      "cer": 0.061
+     },
+     {
+      "px": 6.0,
+      "read": "Справки: кабинет 205, этаж 2",
+      "cer": 0.0
+     },
+     {
+      "px": 5.0,
+      "read": "Free Wi-Fi: CAFE_2417 / pass 7781",
+      "cer": 0.0
+     },
+     {
+      "px": 4.5,
+      "read": "Цена 12 990 руб , скидка 15%",
+      "cer": 0.036
+     }
+    ]
+   },
+   "bicubic": {
+    "cer": 0.624,
+    "lines": [
+     {
+      "px": 11.0,
+      "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+      "cer": 0.059
+     },
+     {
+      "px": 8.5,
+      "read": "Отлючение воды 14.03.2026",
+      "cer": 0.038
+     },
+     {
+      "px": 7.0,
+      "read": "с09.00 20 1U ЗОадом 1B-корп 3",
+      "cer": 0.424
+     },
+     {
+      "px": 6.0,
+      "read": "Caм.4с7",
+      "cer": 1.0
+     },
+     {
+      "px": 5.0,
+      "read": "Тwo<нвач",
+      "cer": 0.97
+     },
+     {
+      "px": 4.5,
+      "read": "Mee5 `",
+      "cer": 0.964
+     }
+    ]
+   },
+   "realesrgan_x4plus": {
+    "cer": 0.491,
+    "lines": [
+     {
+      "px": 11.0,
+      "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+      "cer": 0.059
+     },
+     {
+      "px": 8.5,
+      "read": "Отк люоченио воды 14.03.2026",
+      "cer": 0.115
+     },
+     {
+      "px": 7.0,
+      "read": "c 09.00 no 1 B:J0.ло1о 19  корп. з",
+      "cer": 0.455
+     },
+     {
+      "px": 6.0,
+      "read": "Cnoumu vnnu от Z0v. э771c 2",
+      "cer": 0.75
+     },
+     {
+      "px": 5.0,
+      "read": "По '0WJL CC_7n17 / DbX 7701",
+      "cer": 0.606
+     },
+     {
+      "px": 4.5,
+      "read": "Lun ;: 710 10 . Ujn 12u]",
+      "cer": 0.75
+     }
+    ]
+   },
+   "realesr_general_v3": {
+    "cer": 0.461,
+    "lines": [
+     {
+      "px": 11.0,
+      "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+      "cer": 0.059
+     },
+     {
+      "px": 8.5,
+      "read": "Отключенно воды 14.03.2026",
+      "cer": 0.077
+     },
+     {
+      "px": 7.0,
+      "read": "c 09.00 no 10:30, nort 18, корп 3",
+      "cer": 0.303
+     },
+     {
+      "px": 6.0,
+      "read": "Cnxnu] к1Ошат 20!. утал 2",
+      "cer": 0.607
+     },
+     {
+      "px": 5.0,
+      "read": "Тпа Y Пl CVC J4]7 / DJII )]D ]",
+      "cer": 0.758
+     },
+     {
+      "px": 4.5,
+      "read": "UJ1 010 . wJJ ,n",
+      "cer": 0.75
+     }
+    ]
+   },
+   "swinir_gan": {
+    "cer": 0.467,
+    "lines": [
+     {
+      "px": 11.0,
+      "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+      "cer": 0.059
+     },
+     {
+      "px": 8.5,
+      "read": "Отключение воды 14.03.2026",
+      "cer": 0.0
+     },
+     {
+      "px": 7.0,
+      "read": "c 09.00 ло 19:JD  nом 19 , корп. 3",
+      "cer": 0.303
+     },
+     {
+      "px": 6.0,
+      "read": "CпoлDw; и) чыот 205.отдn 2",
+      "cer": 0.643
+     },
+     {
+      "px": 5.0,
+      "read": "ruog XDDL CIU_WIZ / DJu У7П 1",
+      "cer": 0.727
+     },
+     {
+      "px": 4.5,
+      "read": "Wxл 7Л 00) Ur)) . (uunx ]Dт",
+      "cer": 0.857
+     }
+    ]
+   }
+  }
+ },
+ "noise": {
+  "noise_kodim03": {
+   "input": {
+    "psnr": 20.36,
+    "ssim": 0.219
+   },
+   "nlmeans": {
+    "psnr": 29.87,
+    "ssim": 0.7739
+   },
+   "scunet": {
+    "psnr": 34.85,
+    "ssim": 0.9111
+   }
+  },
+  "noise_kodim23": {
+   "input": {
+    "psnr": 20.38,
+    "ssim": 0.2175
+   },
+   "nlmeans": {
+    "psnr": 30.37,
+    "ssim": 0.8267
+   },
+   "scunet": {
+    "psnr": 35.05,
+    "ssim": 0.9181
+   }
+  }
+ }
+}

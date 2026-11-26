@@ -75,6 +75,8 @@ Prices are USD per 1M tokens; check the provider's page on the day of the test. 
 
 [`experiments/agents`](experiments/agents/) compares coding agents (Claude Code, Codex, OpenCode, Kimi Code) on the same repository tasks: a clean checkout per run, non-interactive agent runs, hidden tests, time/tokens/cost in `results/agents/*.jsonl`, blind A/B/C/D diff export and cost per solved task. Docs in Russian; tests: `python -m pytest experiments/agents/tests`.
 
+[`experiments/photo-enhance`](experiments/photo-enhance/) tests open AI photo enhancers (Real-ESRGAN, SwinIR, GFPGAN, SCUNet) against plain upscaling on a small photo, faces, small text and noise: PSNR/SSIM, ArcFace face similarity and OCR character errors, CPU only. Used in the «AI photo enhancer» articles (November 2026).
+
 ## Safety
 
 Code tasks execute model-generated code in a subprocess with a timeout. Run the bench in a container or VM, not on a machine with secrets. Use a separate API key with a spending limit.

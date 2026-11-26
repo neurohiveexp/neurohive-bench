@@ -1,0 +1,155 @@
+{
+ "small": [
+  {
+   "id": "small_kodim01",
+   "gt": "kodim01.png",
+   "input": "small_kodim01.jpg",
+   "lr_size": [
+    192,
+    128
+   ]
+  },
+  {
+   "id": "small_kodim08",
+   "gt": "kodim08.png",
+   "input": "small_kodim08.jpg",
+   "lr_size": [
+    192,
+    128
+   ]
+  },
+  {
+   "id": "small_kodim13",
+   "gt": "kodim13.png",
+   "input": "small_kodim13.jpg",
+   "lr_size": [
+    192,
+    128
+   ]
+  },
+  {
+   "id": "small_kodim23",
+   "gt": "kodim23.png",
+   "input": "small_kodim23.jpg",
+   "lr_size": [
+    192,
+    128
+   ]
+  }
+ ],
+ "face": [
+  {
+   "id": "face_light_kodim04",
+   "gt": "kodim04.png",
+   "input": "face_light_kodim04.jpg",
+   "level": "light"
+  },
+  {
+   "id": "face_heavy_kodim04",
+   "gt": "kodim04.png",
+   "input": "face_heavy_kodim04.jpg",
+   "level": "heavy"
+  },
+  {
+   "id": "face_light_kodim15",
+   "gt": "kodim15.png",
+   "input": "face_light_kodim15.jpg",
+   "level": "light"
+  },
+  {
+   "id": "face_heavy_kodim15",
+   "gt": "kodim15.png",
+   "input": "face_heavy_kodim15.jpg",
+   "level": "heavy"
+  }
+ ],
+ "text": [
+  {
+   "id": "text_notice",
+   "gt": "text_notice.png",
+   "input": "text_notice.jpg",
+   "lines": [
+    {
+     "text": "ОБЪЯВЛЕНИЕ № 2417",
+     "size": 44,
+     "lr_px": 11.0,
+     "box": [
+      34,
+      36,
+      602,
+      81
+     ]
+    },
+    {
+     "text": "Отключение воды 14.03.2026",
+     "size": 34,
+     "lr_px": 8.5,
+     "box": [
+      34,
+      112,
+      577,
+      154
+     ]
+    },
+    {
+     "text": "с 09:00 до 18:30, дом 18, корп. 3",
+     "size": 28,
+     "lr_px": 7.0,
+     "box": [
+      34,
+      170,
+      529,
+      208
+     ]
+    },
+    {
+     "text": "Справки: кабинет 205, этаж 2",
+     "size": 24,
+     "lr_px": 6.0,
+     "box": [
+      34,
+      217,
+      427,
+      253
+     ]
+    },
+    {
+     "text": "Free Wi-Fi: CAFE_2417 / pass 7781",
+     "size": 20,
+     "lr_px": 5.0,
+     "box": [
+      34,
+      259,
+      391,
+      291
+     ]
+    },
+    {
+     "text": "Цена 12 990 руб., скидка 15%",
+     "size": 18,
+     "lr_px": 4.5,
+     "box": [
+      34,
+      292,
+      331,
+      323
+     ]
+    }
+   ]
+  }
+ ],
+ "noise": [
+  {
+   "id": "noise_kodim03",
+   "gt": "kodim03.png",
+   "input": "noise_kodim03.png",
+   "sigma": 25
+  },
+  {
+   "id": "noise_kodim23",
+   "gt": "kodim23.png",
+   "input": "noise_kodim23.png",
+   "sigma": 25
+  }
+ ]
+}
