@@ -45,7 +45,7 @@ Weights from the official GitHub releases, loaded with spandrel 0.4.2 on PyTorch
 | 3.3 px | 96% | 75% | 75% | 86% |
 | all lines | 62% | 49% | 46% | 47% |
 
-OCR on the original: 2.4% (it reads «№» as «Ng», hence 6% in the top line). All three GAN models render the password 7781 as 7701; Real-ESRGAN and SwinIR turn «15%» into «10%» (see `figs/fig3-text-*.jpg`).
+OCR on the original: 2.4% (it reads «№» as «Ng», hence 6% in the top line). All three GAN models render the password 7781 as 7701. At 4.4 px and below the GAN outputs are sharp letter-like strokes that cannot be read; the digits that can be read are wrong (see `figs/fig3-text-*.jpg`).
 
 **Faces**, ArcFace similarity to the original (kodim04 / kodim15):
 
