@@ -125,12 +125,13 @@ for lang in ["ru", "en"]:
     titles = [t["noisy"], t["nlm"], t["scu"], t["gt"]]
     save(strip(list(zip(titles, subs, ims)), 292, 292, gap=10), f"fig4-noise-{lang}")
 
-    # cover 1600x900: parrots, left noisy / right SCUNet
+    # cover 1600x900: the SAME red macaw twice, left noisy / right SCUNet
+    # (kodim23 has two parrots side by side; splitting the whole frame showed a different bird on each side)
     k = "kodim23"
-    a = load(f"{INP}/noise_{k}.png"); b = load(f"{OUT}/scunet/noise_{k}.png")
-    box = (0, 31, 768, 463)  # 16:9 band
-    a, b = a.crop(box).resize((1600, 900), Image.LANCZOS), b.crop(box).resize((1600, 900), Image.LANCZOS)
-    cov = a.copy(); cov.paste(b.crop((800, 0, 1600, 900)), (800, 0))
+    box = (376, 30, 760, 462)  # 384x432 region -> two 800x900 panels
+    a = load(f"{INP}/noise_{k}.png").crop(box).resize((800, 900), Image.LANCZOS)
+    b = load(f"{OUT}/scunet/noise_{k}.png").crop(box).resize((800, 900), Image.LANCZOS)
+    cov = Image.new("RGB", (1600, 900), BG); cov.paste(a, (0, 0)); cov.paste(b, (800, 0))
     d = ImageDraw.Draw(cov)
     d.rectangle([797, 0, 802, 900], fill=(255, 255, 255))
     fb = ImageFont.truetype(FB, 44)
