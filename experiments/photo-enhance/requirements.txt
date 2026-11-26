@@ -1,0 +1,10 @@
+torch==2.15.0
+torchvision
+spandrel==0.4.2
+facexlib==0.3.0
+onnxruntime
+easyocr==1.7.2
+scikit-image
+opencv-python-headless
+pillow
+numpy
