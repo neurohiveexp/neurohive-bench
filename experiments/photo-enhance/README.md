@@ -67,6 +67,7 @@ Three inputs (`face_heavy_kodim15`, `text_notice`, `small_kodim08`) went through
 | --- | --- | --- |
 | Upscayl | the app's default model Upscayl Standard 4x (NCNN files from the Upscayl repo), run on CPU with `src/upscayl_run.py` | 768×512 |
 | Krea | Enhancer, 4x, default settings | 768×512 |
+| Let's Enhance | Upscale & Enhance, default preset Precise, 4x, free account | 768×512, small watermark |
 | Remini Web | one-click enhance, default settings, no account | 1717×1144 / 1536×1024, watermarked |
 | ChatGPT | free account, prompt below | face: a generated 1536×1024 image; text: ChatGPT upscaled it with Python (768×512); small photo: not run, the free image limit was used up |
 | Gemini | free account, same prompt | 1264×843 |
@@ -80,13 +81,14 @@ Results larger than 768×512 were downscaled in the browser (canvas, `imageSmoot
 | Bicubic, for reference | 0.86 | 62% | unreadable | 19.31 / 0.498 |
 | Upscayl | 0.81 | 50% | 7701 | 18.94 / 0.533 |
 | Krea | 0.57 | 49% | 1201 | 17.37 / 0.405 |
+| Let's Enhance | 0.88 | 5% | 7781, correct | 20.20 / 0.599 |
 | Remini | 0.78 | 60% | unreadable | 18.52 / 0.481 |
 | ChatGPT | 0.71 | 55% | blurry, reads as 7701 | not run |
 | Gemini | 0.76 | 3% | 7701 | 17.60 / 0.450 |
 
-Similarity scale: 1 is the same picture, 0.06 is two different people. Gemini redraws the whole picture: the notice comes back sharp and almost fully readable, except one digit of the password; on the kodim08 house the sign «Seifenfabrikation» becomes «Zupfgeigenhansel» and the shutters change colour (`figs/svc-gemini-*.jpg`). Text from every service: `figs/fig5-text-services-*.jpg`.
+Similarity scale: 1 is the same picture, 0.06 is two different people. Let's Enhance is the only service closer to the original than bicubic on all three inputs: the password is right, the errors are in the smallest line («Цвна», «ѕкидка»), and the sign on the house is sharp but unreadable (`figs/svc-letsenhance-*.jpg`). Gemini redraws the whole picture: the notice comes back sharp and almost fully readable, except one digit of the password; on the kodim08 house the sign «Seifenfabrikation» becomes «Zupfgeigenhansel» and the shutters change colour (`figs/svc-gemini-*.jpg`). Text from every service: `figs/fig5-text-services-*.jpg`.
 
-Not run: Let's Enhance (its Google sign-in opens a pop-up window that a person has to click), Neural Love (the free plan has no credits for processing), Topaz web (asks for a plan before processing: from $199 a year, refund within 2 days), Photoshop (the 7-day trial asks for payment details), Magnific (credit-based, not tried), GigaChat, Alice, Samsung Gallery Remaster, Remini mobile.
+Not run: Neural Love (the free plan has no credits for processing), Topaz web (asks for a plan before processing: from $199 a year, refund within 2 days), Photoshop (the 7-day trial asks for payment details), Magnific (credit-based, not tried), GigaChat, Alice, Samsung Gallery Remaster, Remini mobile.
 
 ## Reproduce
 ```bash

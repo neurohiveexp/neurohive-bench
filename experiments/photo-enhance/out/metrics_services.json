@@ -20,6 +20,10 @@
    "psnr": 17.37,
    "ssim": 0.405
   },
+  "svc_letsenhance": {
+   "psnr": 20.2,
+   "ssim": 0.599
+  },
   "svc_remini": {
    "psnr": 18.52,
    "ssim": 0.4814
@@ -71,6 +75,13 @@
    "landmark_shift_px": 5.4,
    "face_psnr": 23.4,
    "face_ssim": 0.6174
+  },
+  "svc_letsenhance": {
+   "identity": 0.882,
+   "identity_own_landmarks": 0.89,
+   "landmark_shift_px": 2.0,
+   "face_psnr": 25.75,
+   "face_ssim": 0.7081
   },
   "svc_remini": {
    "identity": 0.783,
@@ -302,6 +313,41 @@
      "px": 4.5,
      "read": "Lmnd 11 300 WUD; , /ззомн 10W",
      "cer": 0.714
+    }
+   ]
+  },
+  "svc_letsenhance": {
+   "cer": 0.048,
+   "lines": [
+    {
+     "px": 11.0,
+     "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+     "cer": 0.059
+    },
+    {
+     "px": 8.5,
+     "read": "Отключение воды 14.03.2026",
+     "cer": 0.0
+    },
+    {
+     "px": 7.0,
+     "read": "c 09.00 до 18:30, дом 18, корп. 3",
+     "cer": 0.061
+    },
+    {
+     "px": 6.0,
+     "read": "Справки: кабинет 205, этаж 2",
+     "cer": 0.0
+    },
+    {
+     "px": 5.0,
+     "read": "Free Wi-Fi: CAFE_2417 / pass 7781",
+     "cer": 0.0
+    },
+    {
+     "px": 4.5,
+     "read": "цана 12 990 руб . sкидна 15%",
+     "cer": 0.179
     }
    ]
   },

@@ -79,6 +79,14 @@ for lang in ["ru", "en"]:
         "chatgpt": three("svc_chatgpt", "face_heavy_kodim15", "kodim15.png", FACE_BOX, "ChatGPT",
                          idt.format(v=num(F["svc_chatgpt"]["identity"], lang)), lang),
     }
+    # Let's Enhance: the text lines, stacked
+    figs["letsenhance"] = vstrip([
+        ({"ru": "Вход", "en": "Input"}[lang], {"ru": "что прислали", "en": "what you have"}[lang],
+         load(f"{INP}/text_notice.jpg").resize((768, 512), Image.NEAREST).crop(TEXT_BOX)),
+        ("Let's Enhance", {"ru": "пароль верный", "en": "password correct"}[lang],
+         load(f"{OUT}/svc_letsenhance/text_notice.png").crop(TEXT_BOX)),
+        ({"ru": "Оригинал", "en": "Original"}[lang], {"ru": "эталон", "en": "reference"}[lang],
+         load(f"{GT}/text_notice.png").crop(TEXT_BOX))], 2.0)
     for k, im in figs.items():
         im.save(f"{FIG}/svc-{k}-{lang}.jpg", quality=90)
 
@@ -87,7 +95,7 @@ for lang in ["ru", "en"]:
          "en": {"gt": ("Original", "reference"), "in": ("Input", "what you have")}}[lang]
     rows = [(T["gt"][0], T["gt"][1], load(f"{GT}/text_notice.png").crop(TEXT_BOX)),
             (T["in"][0], T["in"][1], load(f"{INP}/text_notice.jpg").resize((768, 512), Image.NEAREST).crop(TEXT_BOX))]
-    for svc, name in [("svc_upscayl", "Upscayl"), ("svc_krea", "Krea"), ("svc_remini", "Remini"),
+    for svc, name in [("svc_upscayl", "Upscayl"), ("svc_krea", "Krea"), ("svc_letsenhance", "Let's Enhance"), ("svc_remini", "Remini"),
                       ("svc_chatgpt", "ChatGPT"), ("svc_gemini", "Gemini")]:
         rows.append((name, None, load(f"{OUT}/{svc}/text_notice.png").crop(TEXT_BOX)))
     vstrip(rows, 2.0).save(f"{FIG}/fig5-text-services-{lang}.jpg", quality=90)

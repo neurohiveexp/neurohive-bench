@@ -14,7 +14,7 @@ from skimage.metrics import peak_signal_noise_ratio as psnr, structural_similari
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GT, INP, OUT = f"{ROOT}/gt", f"{ROOT}/inputs", f"{ROOT}/out"
 man = json.load(open(f"{INP}/manifest.json"))
-SERVICES = ["svc_upscayl", "svc_krea", "svc_remini", "svc_chatgpt", "svc_gemini"]
+SERVICES = ["svc_upscayl", "svc_krea", "svc_letsenhance", "svc_remini", "svc_chatgpt", "svc_gemini"]
 REF = ["bicubic", "realesrgan_x4plus", "swinir_gan", "gfpgan"]
 
 
