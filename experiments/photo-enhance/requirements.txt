@@ -8,3 +8,4 @@ scikit-image
 opencv-python-headless
 pillow
 numpy
+ncnn==1.0.20261020

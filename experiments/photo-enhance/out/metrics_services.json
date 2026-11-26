@@ -1,0 +1,414 @@
+{
+ "small": {
+  "bicubic": {
+   "psnr": 19.31,
+   "ssim": 0.4978
+  },
+  "realesrgan_x4plus": {
+   "psnr": 18.87,
+   "ssim": 0.5327
+  },
+  "swinir_gan": {
+   "psnr": 18.48,
+   "ssim": 0.536
+  },
+  "svc_upscayl": {
+   "psnr": 18.94,
+   "ssim": 0.5329
+  },
+  "svc_krea": {
+   "psnr": 17.37,
+   "ssim": 0.405
+  },
+  "svc_remini": {
+   "psnr": 18.52,
+   "ssim": 0.4814
+  },
+  "svc_gemini": {
+   "psnr": 17.6,
+   "ssim": 0.4495
+  }
+ },
+ "face": {
+  "bicubic": {
+   "identity": 0.86,
+   "identity_own_landmarks": 0.846,
+   "landmark_shift_px": 4.2,
+   "face_psnr": 24.79,
+   "face_ssim": 0.6849
+  },
+  "realesrgan_x4plus": {
+   "identity": 0.809,
+   "identity_own_landmarks": 0.804,
+   "landmark_shift_px": 4.0,
+   "face_psnr": 26.01,
+   "face_ssim": 0.7201
+  },
+  "swinir_gan": {
+   "identity": 0.84,
+   "identity_own_landmarks": 0.831,
+   "landmark_shift_px": 4.7,
+   "face_psnr": 26.26,
+   "face_ssim": 0.7236
+  },
+  "gfpgan": {
+   "identity": 0.76,
+   "identity_own_landmarks": 0.764,
+   "landmark_shift_px": 3.5,
+   "face_psnr": 25.76,
+   "face_ssim": 0.7136
+  },
+  "svc_upscayl": {
+   "identity": 0.812,
+   "identity_own_landmarks": 0.798,
+   "landmark_shift_px": 3.8,
+   "face_psnr": 25.95,
+   "face_ssim": 0.7212
+  },
+  "svc_krea": {
+   "identity": 0.568,
+   "identity_own_landmarks": 0.541,
+   "landmark_shift_px": 5.4,
+   "face_psnr": 23.4,
+   "face_ssim": 0.6174
+  },
+  "svc_remini": {
+   "identity": 0.783,
+   "identity_own_landmarks": 0.774,
+   "landmark_shift_px": 1.6,
+   "face_psnr": 24.96,
+   "face_ssim": 0.6897
+  },
+  "svc_chatgpt": {
+   "identity": 0.706,
+   "identity_own_landmarks": 0.697,
+   "landmark_shift_px": 1.6,
+   "face_psnr": 19.49,
+   "face_ssim": 0.573
+  },
+  "svc_gemini": {
+   "identity": 0.759,
+   "identity_own_landmarks": 0.762,
+   "landmark_shift_px": 2.9,
+   "face_psnr": 21.57,
+   "face_ssim": 0.6597
+  }
+ },
+ "text": {
+  "gt": {
+   "cer": 0.024,
+   "lines": [
+    {
+     "px": 11.0,
+     "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+     "cer": 0.059
+    },
+    {
+     "px": 8.5,
+     "read": "Отключение воды 14.03.2026",
+     "cer": 0.0
+    },
+    {
+     "px": 7.0,
+     "read": "c 09.00 до 18:30, дом 18, корп. 3",
+     "cer": 0.061
+    },
+    {
+     "px": 6.0,
+     "read": "Справки: кабинет 205, этаж 2",
+     "cer": 0.0
+    },
+    {
+     "px": 5.0,
+     "read": "Free Wi-Fi: CAFE_2417 / pass 7781",
+     "cer": 0.0
+    },
+    {
+     "px": 4.5,
+     "read": "Цена 12 990 руб , скидка 15%",
+     "cer": 0.036
+    }
+   ]
+  },
+  "bicubic": {
+   "cer": 0.624,
+   "lines": [
+    {
+     "px": 11.0,
+     "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+     "cer": 0.059
+    },
+    {
+     "px": 8.5,
+     "read": "Отлючение воды 14.03.2026",
+     "cer": 0.038
+    },
+    {
+     "px": 7.0,
+     "read": "с09.00 20 1U ЗОадом 1B-корп 3",
+     "cer": 0.424
+    },
+    {
+     "px": 6.0,
+     "read": "Caм.4с7",
+     "cer": 1.0
+    },
+    {
+     "px": 5.0,
+     "read": "Тwo<нвач",
+     "cer": 0.97
+    },
+    {
+     "px": 4.5,
+     "read": "Mee5 `",
+     "cer": 0.964
+    }
+   ]
+  },
+  "realesrgan_x4plus": {
+   "cer": 0.491,
+   "lines": [
+    {
+     "px": 11.0,
+     "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+     "cer": 0.059
+    },
+    {
+     "px": 8.5,
+     "read": "Отк люоченио воды 14.03.2026",
+     "cer": 0.115
+    },
+    {
+     "px": 7.0,
+     "read": "c 09.00 no 1 B:J0.ло1о 19  корп. з",
+     "cer": 0.455
+    },
+    {
+     "px": 6.0,
+     "read": "Cnoumu vnnu от Z0v. э771c 2",
+     "cer": 0.75
+    },
+    {
+     "px": 5.0,
+     "read": "По '0WJL CC_7n17 / DbX 7701",
+     "cer": 0.606
+    },
+    {
+     "px": 4.5,
+     "read": "Lun ;: 710 10 . Ujn 12u]",
+     "cer": 0.75
+    }
+   ]
+  },
+  "swinir_gan": {
+   "cer": 0.467,
+   "lines": [
+    {
+     "px": 11.0,
+     "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+     "cer": 0.059
+    },
+    {
+     "px": 8.5,
+     "read": "Отключение воды 14.03.2026",
+     "cer": 0.0
+    },
+    {
+     "px": 7.0,
+     "read": "c 09.00 ло 19:JD  nом 19 , корп. 3",
+     "cer": 0.303
+    },
+    {
+     "px": 6.0,
+     "read": "CпoлDw; и) чыот 205.отдn 2",
+     "cer": 0.643
+    },
+    {
+     "px": 5.0,
+     "read": "ruog XDDL CIU_WIZ / DJu У7П 1",
+     "cer": 0.727
+    },
+    {
+     "px": 4.5,
+     "read": "Wxл 7Л 00) Ur)) . (uunx ]Dт",
+     "cer": 0.857
+    }
+   ]
+  },
+  "svc_upscayl": {
+   "cer": 0.503,
+   "lines": [
+    {
+     "px": 11.0,
+     "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+     "cer": 0.059
+    },
+    {
+     "px": 8.5,
+     "read": "Отк люоченио воды 14.03.2026",
+     "cer": 0.115
+    },
+    {
+     "px": 7.0,
+     "read": "c 09.00 no 1 B:30.ло1о 19  корп. з",
+     "cer": 0.424
+    },
+    {
+     "px": 6.0,
+     "read": "Cnoumu vnnu от Z0v.э7u1c 2",
+     "cer": 0.786
+    },
+    {
+     "px": 5.0,
+     "read": "пnа Y JL CЛJC_7/17 | DLXN 7701",
+     "cer": 0.636
+    },
+    {
+     "px": 4.5,
+     "read": "Lua ;: 710 '10 . Ujn 12u]",
+     "cer": 0.786
+    }
+   ]
+  },
+  "svc_krea": {
+   "cer": 0.491,
+   "lines": [
+    {
+     "px": 11.0,
+     "read": "ОБЪЯВЛЕНИЕ Ne 2417",
+     "cer": 0.059
+    },
+    {
+     "px": 8.5,
+     "read": "Отшшсчечне аоды 14.03.2026",
+     "cer": 0.231
+    },
+    {
+     "px": 7.0,
+     "read": "c 09:00 но 10:30. gon 18. nopn. ]",
+     "cer": 0.394
+    },
+    {
+     "px": 6.0,
+     "read": "Cngdbus: xuebior 205. muRL 2",
+     "cer": 0.679
+    },
+    {
+     "px": 5.0,
+     "read": "FFsp IRD р' ChIl:2411] Зопс 1701",
+     "cer": 0.667
+    },
+    {
+     "px": 4.5,
+     "read": "Lmnd 11 300 WUD; , /ззомн 10W",
+     "cer": 0.714
+    }
+   ]
+  },
+  "svc_remini": {
+   "cer": 0.6,
+   "lines": [
+    {
+     "px": 11.0,
+     "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+     "cer": 0.059
+    },
+    {
+     "px": 8.5,
+     "read": "атппючение воды 14.03.2026",
+     "cer": 0.115
+    },
+    {
+     "px": 7.0,
+     "read": "€ пП ID дп IП_ЛП: Елн IH Птлп ]",
+     "cer": 0.727
+    },
+    {
+     "px": 6.0,
+     "read": "СплЕц - Шышпшт Ifi #Та= 7",
+     "cer": 0.679
+    },
+    {
+     "px": 5.0,
+     "read": "Гнп ШII LI IIY ;| ЕпшI 1]Il",
+     "cer": 0.818
+    },
+    {
+     "px": 4.5,
+     "read": "Шышш #7 ЛПШЯ Пpi_плпшпп | UE}",
+     "cer": 0.893
+    }
+   ]
+  },
+  "svc_chatgpt": {
+   "cer": 0.545,
+   "lines": [
+    {
+     "px": 11.0,
+     "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+     "cer": 0.059
+    },
+    {
+     "px": 8.5,
+     "read": "Отключение воды 14.03.2026",
+     "cer": 0.0
+    },
+    {
+     "px": 7.0,
+     "read": "€09.00 2о 18 ЗОаон 18. корп; 3",
+     "cer": 0.394
+    },
+    {
+     "px": 6.0,
+     "read": "Coзrм: хСынст 17- ?",
+     "cer": 0.786
+    },
+    {
+     "px": 5.0,
+     "read": "YmawauCyrse9J0!",
+     "cer": 0.909
+    },
+    {
+     "px": 4.5,
+     "read": "Uexo *; 9 09ъ2Dм",
+     "cer": 0.857
+    }
+   ]
+  },
+  "svc_gemini": {
+   "cer": 0.03,
+   "lines": [
+    {
+     "px": 11.0,
+     "read": "ОБЪЯВЛЕНИЕ Ng 2417",
+     "cer": 0.059
+    },
+    {
+     "px": 8.5,
+     "read": "Отключение воды 14.03.2026",
+     "cer": 0.0
+    },
+    {
+     "px": 7.0,
+     "read": "с 09.00 до 18:30, дом 18, корп: 3",
+     "cer": 0.061
+    },
+    {
+     "px": 6.0,
+     "read": "Справки: кабинет 205, этаж 2",
+     "cer": 0.0
+    },
+    {
+     "px": 5.0,
+     "read": "Free Wi-Fi: CAFE_2417 / pass 7701",
+     "cer": 0.03
+    },
+    {
+     "px": 4.5,
+     "read": "Цена 12 990 руб , скидка 15%",
+     "cer": 0.036
+    }
+   ]
+  }
+ }
+}

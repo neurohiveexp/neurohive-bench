@@ -29,4 +29,9 @@ for z in pre-v1.1.6/craft_mlt_25k.zip v1.6.1/cyrillic_g2.zip v1.3/english_g2.zip
   curl -fsSL -o "$f" "https://github.com/JaidedAI/EasyOCR/releases/download/$z"
   unzip -oq "$f" -d dl/easyocr_models
 done
+mkdir -p dl/upscayl_models
+for e in param bin; do
+  curl -fsSL -o "dl/upscayl_models/upscayl-standard-4x.$e" \
+    "https://raw.githubusercontent.com/upscayl/upscayl/main/resources/models/upscayl-standard-4x.$e"
+done
 echo "done"
