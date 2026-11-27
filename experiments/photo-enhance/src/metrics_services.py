@@ -1,9 +1,12 @@
 """Same metrics as metrics.py, for results captured from consumer services (out/svc_*/).
 Writes out/metrics_services.json.
 
-Service outputs larger than 4x were downscaled to 768x512 in the browser
-(canvas, imageSmoothingQuality=high) before capture, so every result is compared
-with the original at the original size."""
+Service outputs larger than 4x were downscaled to 768x512 (in the browser, canvas with
+imageSmoothingQuality=high; Alice AI and GigaChat by align_services.py), so every result is
+compared with the original at the original size. Generative services may also shift or crop
+the frame by a few pixels, so before comparing, each result is brought to the original's frame
+with a similarity transform found from SIFT matches (align_services.similarity); PSNR and SSIM
+are taken only where the warped result covers the frame."""
 import json, os
 import numpy as np
 import cv2
@@ -14,7 +17,7 @@ from skimage.metrics import peak_signal_noise_ratio as psnr, structural_similari
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GT, INP, OUT = f"{ROOT}/gt", f"{ROOT}/inputs", f"{ROOT}/out"
 man = json.load(open(f"{INP}/manifest.json"))
-SERVICES = ["svc_upscayl", "svc_krea", "svc_letsenhance", "svc_remini", "svc_chatgpt", "svc_gemini"]
+SERVICES = ["svc_upscayl", "svc_krea", "svc_letsenhance", "svc_remini", "svc_chatgpt", "svc_gemini", "svc_alice", "svc_gigachat"]
 REF = ["bicubic", "realesrgan_x4plus", "swinir_gan", "gfpgan"]
 
 
@@ -25,6 +28,35 @@ def arr(p):
 def ps(gt, x, b=4):
     g, y = (gt[b:-b, b:-b], x[b:-b, b:-b]) if b else (gt, x)
     return round(float(psnr(g, y, data_range=255)), 2), round(float(ssim(g, y, channel_axis=2, data_range=255)), 4)
+
+
+sys_path = os.path.dirname(os.path.abspath(__file__))
+import sys
+sys.path.insert(0, sys_path)
+from align_services import similarity
+
+
+def aligned(m, p, gt):
+    """result warped to the original's frame and the mask of covered pixels; references are left as they are"""
+    x = arr(p)
+    if not m.startswith("svc_"):
+        return x, np.ones(x.shape[:2], bool)
+    M, inl, _ = similarity(x, gt)
+    if M is None or inl < 15:
+        return x, np.ones(x.shape[:2], bool)
+    sc, ang = float(np.hypot(M[0, 0], M[1, 0])), float(np.degrees(np.arctan2(M[1, 0], M[0, 0])))
+    if abs(sc - 1) < 0.002 and abs(ang) < 0.1 and abs(M[0, 2]) < 1 and abs(M[1, 2]) < 1:
+        return x, np.ones(x.shape[:2], bool)  # already in the original's frame: no resampling
+    w = cv2.warpAffine(x, M, (x.shape[1], x.shape[0]), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+    v = cv2.warpAffine(np.ones(x.shape[:2], np.uint8), M, (x.shape[1], x.shape[0]), flags=cv2.INTER_NEAREST, borderValue=0)
+    return w, cv2.erode(v, np.ones((9, 9), np.uint8)) > 0
+
+
+def ps_masked(gt, x, mask, b=4):
+    m = mask.copy(); m[:b, :] = m[-b:, :] = False; m[:, :b] = m[:, -b:] = False
+    mse = float(((gt.astype(np.float64) - x.astype(np.float64)) ** 2)[m].mean())
+    _, smap = ssim(gt, x, channel_axis=2, data_range=255, full=True)
+    return round(10 * np.log10(255 ** 2 / mse), 2), round(float(smap.mean(axis=2)[m].mean()), 4)
 
 
 def item(scen, iid):
@@ -39,7 +71,9 @@ gt = arr(f"{GT}/{it['gt']}")
 for m in REF + SERVICES:
     p = f"{OUT}/{m}/{it['id']}.png"
     if os.path.exists(p):
-        res["small"][m] = dict(zip(["psnr", "ssim"], ps(gt, arr(p))))
+        x, mask = aligned(m, p, gt)
+        res["small"][m] = dict(zip(["psnr", "ssim"], ps_masked(gt, x, mask)))
+        res["small"][m]["psnr_unaligned"], res["small"][m]["ssim_unaligned"] = ps(gt, arr(p))
 
 # --- face: ArcFace identity. Landmarks from the original (as in metrics.py) and,
 # because generative services can move the face a little, also from the result itself.
@@ -79,7 +113,7 @@ for m in REF + SERVICES:
     p = f"{OUT}/{m}/{it['id']}.png"
     if not os.path.exists(p):
         continue
-    x = arr(p)
+    x, _ = aligned(m, p, g)
     own_lm, _ = landmarks(x)
     fp, fs = ps(g[crop[0]:crop[1], crop[2]:crop[3]], x[crop[0]:crop[1], crop[2]:crop[3]], b=0)
     res["face"][m] = {"identity": round(float(embed(x, lm) @ ge), 3),
@@ -113,7 +147,7 @@ for m in ["gt"] + REF + SERVICES:
     p = f"{GT}/{it['gt']}" if m == "gt" else f"{OUT}/{m}/{it['id']}.png"
     if not os.path.exists(p):
         continue
-    img = cv2.cvtColor(arr(p), cv2.COLOR_RGB2GRAY)
+    img = cv2.cvtColor(arr(p) if m == "gt" else aligned(m, p, arr(f"{GT}/{it['gt']}"))[0], cv2.COLOR_RGB2GRAY)
     lines, errs, tot = [], 0, 0
     for ln in it["lines"]:
         x0, y0, x1, y1 = ln["box"]
