@@ -87,6 +87,16 @@ for lang in ["ru", "en"]:
          load(f"{OUT}/svc_letsenhance/text_notice.png").crop(TEXT_BOX)),
         ({"ru": "Оригинал", "en": "Original"}[lang], {"ru": "эталон", "en": "reference"}[lang],
          load(f"{GT}/text_notice.png").crop(TEXT_BOX))], 2.0)
+    # the shop sign: Gemini and ChatGPT side by side
+    inp_s = load(f"{INP}/small_kodim08.jpg").resize((768, 512), Image.NEAREST).crop(SIGN_BOX)
+    sw, sh = SIGN_BOX[2] - SIGN_BOX[0], SIGN_BOX[3] - SIGN_BOX[1]
+    T2 = {"ru": ("Вход", "что прислали", "Оригинал"), "en": ("Input", "what you have", "Original")}[lang]
+    q = ("«", "»") if lang == "ru" else ("“", "”")
+    figs["gemini-chatgpt-sign"] = strip([
+        (T2[0], T2[1], inp_s),
+        ("Gemini", q[0] + "Zupfgeigenhansel" + q[1], load(f"{OUT}/svc_gemini/small_kodim08.png").crop(SIGN_BOX)),
+        ("ChatGPT", q[0] + "Gasthaus Rössle" + q[1], load(f"{OUT}/svc_chatgpt/small_kodim08.png").crop(SIGN_BOX)),
+        (T2[2], q[0] + "Seifenfabrikation" + q[1], load(f"{GT}/kodim08.png").crop(SIGN_BOX))], 280, round(280 * sh / sw))
     if lang == "ru":
         inp_t = load(f"{INP}/text_notice.jpg").resize((768, 512), Image.NEAREST).crop(TEXT_BOX)
         figs["gigachat-alice-text"] = vstrip([

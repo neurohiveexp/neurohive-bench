@@ -88,5 +88,20 @@
   "dx": 1.3,
   "dy": -1.6,
   "covered": 0.997
+ },
+ "svc_chatgpt/small_kodim08": {
+  "file": "out/svc_chatgpt/orig/small_kodim08.png",
+  "size": [
+   1536,
+   1024
+  ],
+  "matches": 272,
+  "inliers": 133,
+  "aligned": true,
+  "scale": 0.9985,
+  "angle_deg": 0.08,
+  "dx": 2.1,
+  "dy": -0.4,
+  "covered": 0.996
  }
 }

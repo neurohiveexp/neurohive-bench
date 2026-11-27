@@ -42,6 +42,12 @@
    "psnr_unaligned": 18.52,
    "ssim_unaligned": 0.4814
   },
+  "svc_chatgpt": {
+   "psnr": 14.77,
+   "ssim": 0.3112,
+   "psnr_unaligned": 14.77,
+   "ssim_unaligned": 0.3133
+  },
   "svc_gemini": {
    "psnr": 18.93,
    "ssim": 0.5293,
