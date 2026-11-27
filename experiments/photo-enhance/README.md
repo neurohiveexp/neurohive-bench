@@ -58,7 +58,7 @@ OCR on the original: 2.4% (it reads «№» as «Ng», hence 6% in the top line)
 
 **Noise**, PSNR / SSIM: noisy 20.4 / 0.22; NL-means 29.9–30.4 / 0.77–0.83; SCUNet 34.9–35.0 / 0.91–0.92.
 
-Article figures (RU and EN labels, 1200 px; covers 1600×900): `figs/`.
+Article figures (RU and EN labels, 1200 px; covers 1600×900): `figs/`. The published articles use `figs/cover.jpg` (no text labels, `src/cover_neutral.py`): Polylang copies the featured image between the RU and EN versions, so one cover serves both.
 
 ## Consumer services (`out/svc_*/`), 26–27 Nov 2026
 Three inputs (`face_heavy_kodim15`, `text_notice`, `small_kodim08`) went through the services from the article that work without payment: free accounts, default settings, one run each. Upscayl to Gemini: 26 Nov, browser in the Netherlands. Alice AI and GigaChat: 27 Nov, run by the Neurohive editor with Russian accounts; the files they returned are in `out/svc_alice/orig/` and `out/svc_gigachat/orig/`.
