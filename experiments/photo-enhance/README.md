@@ -69,7 +69,7 @@ Three inputs (`face_heavy_kodim15`, `text_notice`, `small_kodim08`) went through
 | Krea | Enhancer, 4x, default settings | 768×512 |
 | Let's Enhance | Upscale & Enhance, default preset Precise, 4x, free account | 768×512, small watermark |
 | Remini Web | one-click enhance, default settings, no account | 1717×1144 / 1536×1024, watermarked |
-| ChatGPT | free account, prompt below | face: a generated 1536×1024 image; text: ChatGPT upscaled it with Python (768×512); small photo: not run, the free image limit was used up |
+| ChatGPT | free account, prompt below | face: a generated 1536×1024 image; text: ChatGPT upscaled it with Python (768×512); small photo: a generated 1536×1024 image, run by the editor on 27 Nov after the free image limit reset (`orig/`) |
 | Gemini | free account, same prompt | 1264×843 |
 | Alice AI | same prompt, a new chat for each image | 1248×848, frame about 2% tighter |
 | GigaChat | same prompt, a new chat for each image | 2048×1376 |
@@ -85,12 +85,12 @@ Results larger than 768×512 were downscaled in the browser (canvas, `imageSmoot
 | Krea | 0.57 | 49% | 1201 | 17.37 / 0.405 |
 | Let's Enhance | 0.88 | 5% | 7781, correct | 20.20 / 0.599 |
 | Remini | 0.78 | 60% | unreadable | 18.52 / 0.481 |
-| ChatGPT | 0.69 | 55% | blurry, reads as 7701 | not run |
+| ChatGPT | 0.69 | 55% | blurry, reads as 7701 | 14.77 / 0.311 |
 | Gemini | 0.77 | 3% | 7701 | 18.93 / 0.529 |
 | Alice AI | 0.56 | 15% | 7701 | 17.11 / 0.469 |
 | GigaChat | 0.76 | 6% | 7781, but «pass» became «пасс» | 17.46 / 0.462 |
 
-Similarity scale: 1 is the same picture, 0.06 is two different people. Let's Enhance is the only service closer to the original than bicubic on all three inputs: the password is right, the errors are in the smallest line («Цвна», «ѕкидка»), and the sign on the house is sharp but unreadable (`figs/svc-letsenhance-*.jpg`). Gemini redraws the whole picture: the notice comes back sharp and almost fully readable, except one digit of the password; on the kodim08 house the sign «Seifenfabrikation» becomes «Zupfgeigenhansel» and the shutters change colour (`figs/svc-gemini-*.jpg`). GigaChat also gets the password digits right, but writes «пасс» for «pass» and «Дена» for «Цена». Alice AI draws a different child (similarity 0.56, the lowest with Krea) and changes digits in both small lines: 7701, «17 960». Text from every service: `figs/fig5-text-services-*.jpg` (the Russian figure includes Alice AI and GigaChat).
+Similarity scale: 1 is the same picture, 0.06 is two different people. Let's Enhance is the only service closer to the original than bicubic on all three inputs: the password is right, the errors are in the smallest line («Цвна», «ѕкидка»), and the sign on the house is sharp but unreadable (`figs/svc-letsenhance-*.jpg`). Gemini redraws the whole picture: the notice comes back sharp and almost fully readable, except one digit of the password; on the kodim08 house the sign «Seifenfabrikation» becomes «Zupfgeigenhansel» and the shutters change colour (`figs/svc-gemini-*.jpg`). GigaChat also gets the password digits right, but writes «пасс» for «pass» and «Дена» for «Цена». Alice AI draws a different child (similarity 0.56, the lowest with Krea) and changes digits in both small lines: 7701, «17 960». ChatGPT also writes a new sign on the house, «Gasthaus Rössle» with a red horse, and repaints the facades, which gives the lowest PSNR of all (`figs/svc-gemini-chatgpt-sign-*.jpg`). Text from every service: `figs/fig5-text-services-*.jpg` (the Russian figure includes Alice AI and GigaChat).
 
 Not run: Neural Love (the free plan has no credits for processing), Topaz web (asks for a plan before processing: from $199 a year, refund within 2 days), Photoshop (the 7-day trial asks for payment details), Magnific (credit-based, not tried), Samsung Gallery Remaster, Remini mobile.
 
