@@ -60,8 +60,8 @@ OCR on the original: 2.4% (it reads «№» as «Ng», hence 6% in the top line)
 
 Article figures (RU and EN labels, 1200 px; covers 1600×900): `figs/`.
 
-## Consumer services (`out/svc_*/`), 26 Nov 2026
-Three inputs (`face_heavy_kodim15`, `text_notice`, `small_kodim08`) went through the services from the article that work without payment: free accounts, default settings, one run each, browser in the Netherlands.
+## Consumer services (`out/svc_*/`), 26–27 Nov 2026
+Three inputs (`face_heavy_kodim15`, `text_notice`, `small_kodim08`) went through the services from the article that work without payment: free accounts, default settings, one run each. Upscayl to Gemini: 26 Nov, browser in the Netherlands. Alice AI and GigaChat: 27 Nov, run by the Neurohive editor with Russian accounts; the files they returned are in `out/svc_alice/orig/` and `out/svc_gigachat/orig/`.
 
 | Service | How it was run | What came back |
 | --- | --- | --- |
@@ -71,10 +71,12 @@ Three inputs (`face_heavy_kodim15`, `text_notice`, `small_kodim08`) went through
 | Remini Web | one-click enhance, default settings, no account | 1717×1144 / 1536×1024, watermarked |
 | ChatGPT | free account, prompt below | face: a generated 1536×1024 image; text: ChatGPT upscaled it with Python (768×512); small photo: not run, the free image limit was used up |
 | Gemini | free account, same prompt | 1264×843 |
+| Alice AI | same prompt, a new chat for each image | 1248×848, frame about 2% tighter |
+| GigaChat | same prompt, a new chat for each image | 2048×1376 |
 
 Prompt: «Улучши качество этого фото: увеличь разрешение в 4 раза и убери размытие. Ничего не добавляй и не меняй в содержании.» ("Improve the quality of this photo: upscale it 4x and remove the blur. Do not add or change anything.")
 
-Results larger than 768×512 were downscaled in the browser (canvas, `imageSmoothingQuality = high`) and saved as PNG. Same metrics as above: `src/metrics_services.py` → `out/metrics_services.json`.
+Results larger than 768×512 were downscaled in the browser (canvas, `imageSmoothingQuality = high`) and saved as PNG; Alice AI and GigaChat results were brought to 768×512 by `src/align_services.py`. Generative services also shift, scale or crop the frame a little, so `src/metrics_services.py` first finds the similarity transform to the original from SIFT matches and, if it is more than 1 px or 0.2% away from identity, warps the result into the original's frame; PSNR and SSIM are then taken only where the result covers the frame. This moved ChatGPT (face) and Gemini (all three), the others were already in place. Same metrics as above → `out/metrics_services.json`, transforms → `out/alignment.json`.
 
 | | Face: ArcFace similarity | Text: misread characters | Wi-Fi password (7781) | Small photo: PSNR / SSIM |
 | --- | --- | --- | --- | --- |
@@ -83,19 +85,21 @@ Results larger than 768×512 were downscaled in the browser (canvas, `imageSmoot
 | Krea | 0.57 | 49% | 1201 | 17.37 / 0.405 |
 | Let's Enhance | 0.88 | 5% | 7781, correct | 20.20 / 0.599 |
 | Remini | 0.78 | 60% | unreadable | 18.52 / 0.481 |
-| ChatGPT | 0.71 | 55% | blurry, reads as 7701 | not run |
-| Gemini | 0.76 | 3% | 7701 | 17.60 / 0.450 |
+| ChatGPT | 0.69 | 55% | blurry, reads as 7701 | not run |
+| Gemini | 0.77 | 3% | 7701 | 18.93 / 0.529 |
+| Alice AI | 0.56 | 15% | 7701 | 17.11 / 0.469 |
+| GigaChat | 0.76 | 6% | 7781, but «pass» became «пасс» | 17.46 / 0.462 |
 
-Similarity scale: 1 is the same picture, 0.06 is two different people. Let's Enhance is the only service closer to the original than bicubic on all three inputs: the password is right, the errors are in the smallest line («Цвна», «ѕкидка»), and the sign on the house is sharp but unreadable (`figs/svc-letsenhance-*.jpg`). Gemini redraws the whole picture: the notice comes back sharp and almost fully readable, except one digit of the password; on the kodim08 house the sign «Seifenfabrikation» becomes «Zupfgeigenhansel» and the shutters change colour (`figs/svc-gemini-*.jpg`). Text from every service: `figs/fig5-text-services-*.jpg`.
+Similarity scale: 1 is the same picture, 0.06 is two different people. Let's Enhance is the only service closer to the original than bicubic on all three inputs: the password is right, the errors are in the smallest line («Цвна», «ѕкидка»), and the sign on the house is sharp but unreadable (`figs/svc-letsenhance-*.jpg`). Gemini redraws the whole picture: the notice comes back sharp and almost fully readable, except one digit of the password; on the kodim08 house the sign «Seifenfabrikation» becomes «Zupfgeigenhansel» and the shutters change colour (`figs/svc-gemini-*.jpg`). GigaChat also gets the password digits right, but writes «пасс» for «pass» and «Дена» for «Цена». Alice AI draws a different child (similarity 0.56, the lowest with Krea) and changes digits in both small lines: 7701, «17 960». Text from every service: `figs/fig5-text-services-*.jpg` (the Russian figure includes Alice AI and GigaChat).
 
-Not run: Neural Love (the free plan has no credits for processing), Topaz web (asks for a plan before processing: from $199 a year, refund within 2 days), Photoshop (the 7-day trial asks for payment details), Magnific (credit-based, not tried), GigaChat, Alice, Samsung Gallery Remaster, Remini mobile.
+Not run: Neural Love (the free plan has no credits for processing), Topaz web (asks for a plan before processing: from $199 a year, refund within 2 days), Photoshop (the 7-day trial asks for payment details), Magnific (credit-based, not tried), Samsung Gallery Remaster, Remini mobile.
 
 ## Reproduce
 ```bash
 pip install -r requirements.txt
 bash get_data.sh
 python src/prep.py && python src/run.py && python src/metrics.py && python src/figs.py
-python src/upscayl_run.py && python src/metrics_services.py && python src/figs_services.py
+python src/upscayl_run.py && python src/align_services.py svc_alice svc_gigachat && python src/metrics_services.py && python src/figs_services.py
 ```
 Results from the web services are stored in `out/svc_*/`; they cannot be regenerated by a script.
 `prep.py` and `figs.py` use DejaVu fonts from `/usr/share/fonts/truetype/dejavu/` (package `fonts-dejavu-core`).

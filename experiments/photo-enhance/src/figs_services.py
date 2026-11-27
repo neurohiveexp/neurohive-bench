@@ -87,6 +87,20 @@ for lang in ["ru", "en"]:
          load(f"{OUT}/svc_letsenhance/text_notice.png").crop(TEXT_BOX)),
         ({"ru": "Оригинал", "en": "Original"}[lang], {"ru": "эталон", "en": "reference"}[lang],
          load(f"{GT}/text_notice.png").crop(TEXT_BOX))], 2.0)
+    if lang == "ru":
+        inp_t = load(f"{INP}/text_notice.jpg").resize((768, 512), Image.NEAREST).crop(TEXT_BOX)
+        figs["gigachat-alice-text"] = vstrip([
+            ("Вход", "что прислали", inp_t),
+            ("ГигаЧат", "пароль верный, но «пасс»", load(f"{OUT}/svc_gigachat/text_notice.png").crop(TEXT_BOX)),
+            ("Алиса AI", "7701 и чужая цена", load(f"{OUT}/svc_alice/text_notice.png").crop(TEXT_BOX)),
+            ("Оригинал", "эталон", load(f"{GT}/text_notice.png").crop(TEXT_BOX))], 2.0, label_w=250)
+        inp_f = load(f"{INP}/face_heavy_kodim15.jpg").resize((768, 512), Image.NEAREST).crop(FACE_BOX)
+        w, h = FACE_BOX[2] - FACE_BOX[0], FACE_BOX[3] - FACE_BOX[1]
+        figs["gigachat-alice-face"] = strip([
+            ("Вход", "что прислали", inp_f),
+            ("ГигаЧат", idt.format(v=num(F["svc_gigachat"]["identity"], lang)).replace("сходство с оригиналом", "сходство"), load(f"{OUT}/svc_gigachat/face_heavy_kodim15.png").crop(FACE_BOX)),
+            ("Алиса AI", idt.format(v=num(F["svc_alice"]["identity"], lang)).replace("сходство с оригиналом", "сходство"), load(f"{OUT}/svc_alice/face_heavy_kodim15.png").crop(FACE_BOX)),
+            ("Оригинал", "эталон", load(f"{GT}/kodim15.png").crop(FACE_BOX))], 280, round(280 * h / w))
     for k, im in figs.items():
         im.save(f"{FIG}/svc-{k}-{lang}.jpg", quality=90)
 
@@ -95,8 +109,11 @@ for lang in ["ru", "en"]:
          "en": {"gt": ("Original", "reference"), "in": ("Input", "what you have")}}[lang]
     rows = [(T["gt"][0], T["gt"][1], load(f"{GT}/text_notice.png").crop(TEXT_BOX)),
             (T["in"][0], T["in"][1], load(f"{INP}/text_notice.jpg").resize((768, 512), Image.NEAREST).crop(TEXT_BOX))]
-    for svc, name in [("svc_upscayl", "Upscayl"), ("svc_krea", "Krea"), ("svc_letsenhance", "Let's Enhance"), ("svc_remini", "Remini"),
-                      ("svc_chatgpt", "ChatGPT"), ("svc_gemini", "Gemini")]:
+    svcs = [("svc_upscayl", "Upscayl"), ("svc_krea", "Krea"), ("svc_letsenhance", "Let's Enhance"), ("svc_remini", "Remini"),
+            ("svc_chatgpt", "ChatGPT"), ("svc_gemini", "Gemini")]
+    if lang == "ru":  # Alice AI and GigaChat are only in the Russian article
+        svcs += [("svc_alice", "Алиса AI"), ("svc_gigachat", "ГигаЧат")]
+    for svc, name in svcs:
         rows.append((name, None, load(f"{OUT}/{svc}/text_notice.png").crop(TEXT_BOX)))
     vstrip(rows, 2.0).save(f"{FIG}/fig5-text-services-{lang}.jpg", quality=90)
 print(sorted(f for f in os.listdir(FIG) if f.startswith(("svc-", "fig5"))))
